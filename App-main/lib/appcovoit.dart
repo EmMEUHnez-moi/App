@@ -273,11 +273,8 @@ class MesTrajetsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Mes Trajets'),
-      )
-    );
+    return MaterialApp(
+      home: PageTrajets());
   }
 }
 
@@ -286,11 +283,8 @@ class MessageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Messagerie'),
-      )
-    );
+    return MaterialApp(
+      home: PageMessage());
   }
 }
 
@@ -299,14 +293,12 @@ class FavorisScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Mes Favoris'),
-      )
-    );
+    return MaterialApp(
+      home: PageFavoris());
   }
 }
 
+/*
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
@@ -319,6 +311,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
+*/
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -333,7 +326,6 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -344,3 +336,68 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+class AjouterTrajetPage extends StatelessWidget {
+  const AjouterTrajetPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Ajouter un trajet")),
+      body: Padding(padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[Text("Lieu de départ")],),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: '', 
+                  border: OutlineInputBorder()),)),
+            Row(
+              children: <Widget>[Text("Destination")],),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: '', 
+                  border: OutlineInputBorder()),)),
+            Row(
+              children: <Widget>[Text("Date de départ")],),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'JJ/MM/AAAA', 
+                  border: OutlineInputBorder()),)),
+            Row(
+              children: <Widget>[Text("Horaire de départ")],),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'HH:MM', 
+                  border: OutlineInputBorder()),)),
+            Row(
+              children: <Widget>[Text("Places disponibles")],),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: '', 
+                  border: OutlineInputBorder()),)),
+            Row(
+              children: <Widget>[Text("Lieu de RDV")],),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: '', 
+                  border: OutlineInputBorder()),)),
+            //Row(children: PriveouPublic(),),
+          ],))
+    );
+  }
+}
+/*
+class PriveouPublic extends StatefulWidget {
+  const PriveouPublic({super.key});
+
+  @override
+  
+}
+*/

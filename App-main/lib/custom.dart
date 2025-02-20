@@ -20,20 +20,52 @@ class _PremierePageState extends State<PremierePage> {
 }
 
 class PageAccueil extends StatelessWidget {
+  const PageAccueil({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Acceuil", style: TextStyle(color: Colors.deepPurple)),
+        title: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AjouterTrajetPage()));}, 
+              child: Text("Ajouter un trajet")),
         actions: [IconButton(
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ProfileScreen()));
           }, 
-          icon: Icon(Icons.person, color: Colors.deepPurple))]),
-      
+          icon: Icon(Icons.person, color: Colors.deepPurple))])
     );
   }
 }
 
+class PageFavoris extends StatelessWidget {
+  const PageFavoris({super.key});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}
+
+class PageMessage extends StatelessWidget {
+  const PageMessage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}
+
+class PageTrajets extends StatelessWidget {
+  const PageTrajets({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}
