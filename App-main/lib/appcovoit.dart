@@ -1,4 +1,7 @@
-import 'package:emmeuhnez_moi_app/custom.dart';
+import 'package:emmeuhnez_moi_app/Accueil.dart';
+import 'ConnectInscrip.dart';
+import 'MesTrajetsScreen.dart';
+import 'Favoris.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,7 +28,7 @@ class AppCovoit extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: PremierePage(),
+      home: FirstPage(),
     );
   }
 }
@@ -38,7 +41,7 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
   final List<Widget> _connectorinscrip = [
     ConnectPage(),
     InscripPage(),
@@ -51,164 +54,6 @@ class _FirstPageState extends State<FirstPage> {
       appBar: AppBar(
         title: Text('Identifiez-vous'),
       ),
-    );
-  }
-}
-
-class ConnectPage extends StatelessWidget {
-  const ConnectPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Connectez-vous'),
-      ),
-      body: Padding( padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[ Text('Identifiant ou mail')],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '',
-                  border: OutlineInputBorder(),),),
-            ),
-            Row(
-              children: <Widget>[ Text('Mot de passe')],),
-            Expanded( //test du mot correct ou incorrect
-              child: TextField(
-              decoration: InputDecoration(
-                labelText: '',
-                border: OutlineInputBorder(),),),
-            ),
-            Center(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InscripPage())
-                  );
-                },
-                child: Text("Vous n'avez pas de compte, inscrivez-vous en cliquant ici")
-              ),),
-              Center(
-                child: ElevatedButton( //mettre conditions et erreurs
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));
-                  },
-                  child: Text('Connecter')
-                ) 
-              )
-          ]      
-        )
-        )
-    );
-  }
-}
-
-class InscripPage extends StatelessWidget {
-  const InscripPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title:Text('Inscrivez-vous')),
-      body: Padding(padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[Text('Mail')],),
-            Expanded(
-               child: TextField(
-                decoration: InputDecoration(
-                  labelText: '',
-                  border: OutlineInputBorder(),),),
-            ),
-            Row(
-              children: <Widget>[Text('Mot de passe')],),
-            Expanded(
-               child: TextField(
-                decoration: InputDecoration(
-                  labelText: '',
-                  border: OutlineInputBorder(),),),
-            ),   
-            Row(
-              children: <Widget>[Text('Confirmation du mot de passe')],),
-            Expanded( //condition à mettre !!
-               child: TextField(
-                decoration: InputDecoration(
-                  labelText: '',
-                  border: OutlineInputBorder(),),),
-            ), 
-            Center(
-                child: ElevatedButton( //mettre conditions et erreurs
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => InscripSuitePage()));
-                  },
-                  child: Text("S'inscrire")
-                ) 
-              )
-          ]
-        )
-      )
-    );
-}
-}
-
-class InscripSuitePage extends StatelessWidget {
-  const InscripSuitePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Inscription'),), 
-      body: Padding(padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[Text('Nom')],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '', 
-                  border: OutlineInputBorder())),),
-            Row(
-              children: <Widget>[Text('Prénom')],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '', 
-                  border: OutlineInputBorder())),),
-            Row(
-              children: <Widget>[Text('Date de naissance')],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'JJ/MM/AAAA', 
-                  border: OutlineInputBorder())),),
-            Row(
-              children: <Widget>[Text('Numéro de téléphone')],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '', 
-                  border: OutlineInputBorder())),),
-            Center(
-                child: ElevatedButton( //mettre conditions et erreurs
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));
-                  },
-                  child: Text("Terminer")))
-            ],)
-      )
     );
   }
 }
@@ -268,33 +113,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MesTrajetsScreen extends StatelessWidget {
-  const MesTrajetsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PageTrajets());
-  }
-}
 
 class MessageScreen extends StatelessWidget {
   const MessageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PageMessage());
-  }
-}
-
-class FavorisScreen extends StatelessWidget {
-  const FavorisScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PageFavoris());
+    return Scaffold();
   }
 }
 
@@ -310,94 +135,5 @@ class SettingsScreen extends StatelessWidget {
       )
     );
   }
-}
-*/
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      )
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PageAccueil());
-  }
-}
-
-class AjouterTrajetPage extends StatelessWidget {
-  const AjouterTrajetPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Ajouter un trajet")),
-      body: Padding(padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[Text("Lieu de départ")],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '', 
-                  border: OutlineInputBorder()),)),
-            Row(
-              children: <Widget>[Text("Destination")],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '', 
-                  border: OutlineInputBorder()),)),
-            Row(
-              children: <Widget>[Text("Date de départ")],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'JJ/MM/AAAA', 
-                  border: OutlineInputBorder()),)),
-            Row(
-              children: <Widget>[Text("Horaire de départ")],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'HH:MM', 
-                  border: OutlineInputBorder()),)),
-            Row(
-              children: <Widget>[Text("Places disponibles")],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '', 
-                  border: OutlineInputBorder()),)),
-            Row(
-              children: <Widget>[Text("Lieu de RDV")],),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '', 
-                  border: OutlineInputBorder()),)),
-            //Row(children: PriveouPublic(),),
-          ],))
-    );
-  }
-}
-/*
-class PriveouPublic extends StatefulWidget {
-  const PriveouPublic({super.key});
-
-  @override
-  
 }
 */
