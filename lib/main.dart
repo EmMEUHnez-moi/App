@@ -1,5 +1,7 @@
-import 'package:emmeuhnez_moi_app/customnavbar.dart';
+import 'package:emmeuhnez_moi_app/appcovoit.dart';
 import 'package:flutter/material.dart';
+import 'ConnectInscrip.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: Customnavbar(),
+      home: AppCovoit(),
     );
   }
 }
@@ -108,6 +110,30 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text('Settings Screen'),
+    );
+  }
+}
+class FirstPage extends StatefulWidget {
+  const FirstPage({super.key});
+
+  @override
+  State<FirstPage> createState() => _FirstPageState();
+}
+
+class _FirstPageState extends State<FirstPage> {
+  int _currentIndex = 0;
+  final List<Widget> _connectorinscrip = [
+    ConnectPage(),
+    InscripPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _connectorinscrip[_currentIndex],
+      appBar: AppBar(
+        title: Text('Identifiez-vous'),
+      ),
     );
   }
 }
