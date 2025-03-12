@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class FavorisScreen extends StatelessWidget {
   final ValueNotifier<int> _indice = ValueNotifier<int>(0);
-  final List<Widget> _pages = [TrajetfavPage(),UtilisateurfavPage()];
+  final List<Widget> _pages = [TrajetfavScreen(),UtilisateurfavScreen()];
 
   FavorisScreen({super.key});
   
@@ -38,6 +38,17 @@ class FavorisScreen extends StatelessWidget {
   }
 }
 
+class TrajetfavScreen extends StatelessWidget {
+  const TrajetfavScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: TrajetfavScreen()
+    );
+  }
+}
+
 class TrajetfavPage extends StatelessWidget {
   const TrajetfavPage({super.key});
 
@@ -45,6 +56,17 @@ class TrajetfavPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Trajets favoris", style: TextStyle(color: Colors.deepPurple)),),
+    );
+  }
+}
+
+class UtilisateurfavScreen extends StatelessWidget {
+  const UtilisateurfavScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: UtilisateurfavScreen()
     );
   }
 }

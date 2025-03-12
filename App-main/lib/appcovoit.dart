@@ -1,7 +1,7 @@
-import 'package:emmeuhnez_moi_app/Accueil.dart';
-import 'ConnectInscrip.dart';
-import 'MesTrajetsScreen.dart';
-import 'Favoris.dart';
+import 'package:emmeuhnez_moi_app/Accueil/view/Accueil.dart';
+import 'ConnectInscrip/view/ConnectInscrip.dart';
+import 'MesTrajets/view/MesTrajetsScreen.dart';
+import 'MesFavoris/view/Favoris.dart';
 import 'package:flutter/material.dart';
 
 void main() {
