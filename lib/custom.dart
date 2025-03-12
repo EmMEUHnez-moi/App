@@ -1,5 +1,7 @@
 import 'package:emmeuhnez_moi_app/appcovoit.dart';
 import 'package:flutter/material.dart';
+import 'package:emmeuhnez_moi_app/ConnectInscrip.dart';
+
 
 class PremierePage extends StatefulWidget {
   const PremierePage({super.key});

@@ -1,16 +1,10 @@
-import 'package:emmeuhnez_moi_app/custom.dart';
 import 'package:flutter/material.dart';
+import 'package:emmeuhnez_moi_app/MesTrajets/view/MesTrajetsScreen.dart';
 
 
-class MesTrajetsScreen extends StatefulWidget {
-  const MesTrajetsScreen({super.key});
-  
-  @override
-  State<MesTrajetsScreen> createState() =>_MesTrajetsScreenState();
 
-}
-
-class _MesTrajetsScreenState extends State<MesTrajetsScreen>{
+// ignore: unused_element
+class MesTrajetsScreenState extends State<MesTrajetsScreen>{
 
   final listeCovoit= [
     {
@@ -31,10 +25,12 @@ class _MesTrajetsScreenState extends State<MesTrajetsScreen>{
 
     }
 
-
+  
   ];
 
   @override
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -67,4 +63,3 @@ class _MesTrajetsScreenState extends State<MesTrajetsScreen>{
     );
   }
 }
-

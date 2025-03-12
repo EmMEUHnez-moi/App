@@ -1,6 +1,6 @@
 import 'package:emmeuhnez_moi_app/custom.dart';
 import 'package:flutter/material.dart';
-import 'package:emmeuhnez_moi_app/MesTrajetsScreen.dart';
+import 'package:emmeuhnez_moi_app/MesTrajets/view/MesTrajetsScreen.dart';
 import 'package:emmeuhnez_moi_app/ConnectInscrip.dart';
 
 
@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     MesTrajetsScreen(),
     FavorisScreen(),
     MessageScreen(),
+    SearchBarApp(),
   ];
   
   @override
