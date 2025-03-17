@@ -1,8 +1,10 @@
-import 'package:emmeuhnez_moi_app/Accueil/view/accueil_view.dart';
-import 'ConnectInscrip/view/connectinscrip_view.dart';
-import 'MesTrajets/view/mestrajets_view.dart';
-import 'MesFavoris/view/favoris_view.dart';
+import 'package:emmeuhnez_moi_app/message/view/message_view.dart';
+import 'package:emmeuhnez_moi_app/profil/view/register_view.dart';
 import 'package:flutter/material.dart';
+import 'package:emmeuhnez_moi_app/accueil/view/accueil_view.dart';
+import 'package:emmeuhnez_moi_app/profil/view/connexion_view.dart';
+import 'package:emmeuhnez_moi_app/trajets/view/trajets_view.dart';
+import 'package:emmeuhnez_moi_app/favoris/view/favoris_view.dart';
 
 void main() {
   runApp(const AppCovoit());
@@ -45,8 +47,8 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
   final int _currentIndex = 0;
   final List<Widget> _connectorinscrip = [
-    ConnectPage(),
-    InscripPage(),
+    ConnexionView(),
+    RegisterView(),
   ];
 
   @override
@@ -70,10 +72,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   final List<Widget> _screens = [
-    HomeScreen(),
-    MesTrajetsScreen(),
-    FavorisScreen(),
-    MessageScreen(),
+    AccueilView(),
+    TrajetsView(),
+    FavorisView(),
+    MessageView(),
   ];
 
   @override
@@ -107,15 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-  }
-}
-
-class MessageScreen extends StatelessWidget {
-  const MessageScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }
 

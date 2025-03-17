@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ProfilScreen extends StatelessWidget {
-  const ProfilScreen({super.key});
+class NewTrajetFavorisView extends StatelessWidget {
+  const NewTrajetFavorisView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-      title: Text('Profil'),
+      title: Text("Choix d'un trajet favoris"),
     ));
   }
 }

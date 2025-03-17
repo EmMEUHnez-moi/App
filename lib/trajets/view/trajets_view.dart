@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:emmeuhnez_moi_app/MesTrajets/view/mestrajets_view.dart';
 
-// ignore: unused_element
-class MesTrajetsScreenState extends State<MesTrajetsScreen> {
+class TrajetsView extends StatefulWidget {
+  const TrajetsView({super.key});
+
+  @override
+  State<TrajetsView> createState() => TrajetsViewState();
+}
+
+class TrajetsViewState extends State<TrajetsView> {
   final listeCovoit = [
     {
       "Conducteur": "Coumba Niakate",

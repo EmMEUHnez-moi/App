@@ -1,12 +1,12 @@
-import 'package:emmeuhnez_moi_app/Accueil/view/accueil_view.dart';
-import 'package:emmeuhnez_moi_app/Accueil/widget/button_accueil.dart';
-import 'package:emmeuhnez_moi_app/AjouterUnTrajet/widget/champforumlaire_picker.dart';
-import 'package:emmeuhnez_moi_app/AjouterUnTrajet/widget/dropdownbutton_priveoupublic.dart';
-import 'package:emmeuhnez_moi_app/ChoixTrajetFav/view/choixtrajetfev_view.dart';
 import 'package:flutter/material.dart';
+import 'package:emmeuhnez_moi_app/accueil/view/accueil_view.dart';
+import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
+import 'package:emmeuhnez_moi_app/trajets/widget/champforumlaire_picker.dart';
+import 'package:emmeuhnez_moi_app/trajets/widget/dropdownbutton_priveoupublic.dart';
+import 'package:emmeuhnez_moi_app/favoris/view/new_trajet_favoris_view.dart';
 
-class AjouterTrajetPage extends StatelessWidget {
-  const AjouterTrajetPage({super.key});
+class NewTrajetView extends StatelessWidget {
+  const NewTrajetView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class AjouterTrajetPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ChoixtrajetfavPage()));
+                        builder: (context) => NewTrajetFavorisView()));
               },
               icon: Icon(Icons.favorite, color: Colors.deepPurple))
         ]),
@@ -43,7 +43,7 @@ class AjouterTrajetPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                              builder: (context) => AccueilView()));
                     },
                   ),
                 )

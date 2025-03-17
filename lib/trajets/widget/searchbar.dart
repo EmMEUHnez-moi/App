@@ -1,12 +1,4 @@
-import 'package:emmeuhnez_moi_app/MesTrajets/widget/mestrajetswidget.dart';
 import 'package:flutter/material.dart';
-
-class MesTrajetsScreen extends StatefulWidget {
-  const MesTrajetsScreen({super.key});
-
-  @override
-  State<MesTrajetsScreen> createState() => MesTrajetsScreenState();
-}
 
 /// Flutter code sample for [SearchBar].
 

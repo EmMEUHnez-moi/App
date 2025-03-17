@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class FavorisScreen extends StatelessWidget {
+class FavorisView extends StatelessWidget {
   final ValueNotifier<int> _indice = ValueNotifier<int>(0);
   final List<Widget> _pages = [TrajetfavPage(), UtilisateurfavPage()];
 
-  FavorisScreen({super.key});
+  FavorisView({super.key});
 
   @override
   Widget build(BuildContext context) {
