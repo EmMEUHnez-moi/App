@@ -87,5 +87,3 @@ class SearchBarAppState extends State<SearchBarApp> {
     );
   }
 }
-
-
