@@ -3,6 +3,8 @@ import 'ConnectInscrip/view/ConnectInscrip.dart';
 import 'MesTrajets/view/MesTrajetsScreen.dart';
 import 'MesFavoris/view/Favoris.dart';
 import 'package:flutter/material.dart';
+import 'ConnectInscrip.dart';
+
 
 void main() {
   runApp(const AppCovoit());

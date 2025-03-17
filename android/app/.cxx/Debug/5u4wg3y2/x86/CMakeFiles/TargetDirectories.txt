@@ -1,0 +1,2 @@
+C:/Users/anask/OneDrive/Documents/ProjetCEPI/App/android/app/.cxx/Debug/5u4wg3y2/x86/CMakeFiles/edit_cache.dir
+C:/Users/anask/OneDrive/Documents/ProjetCEPI/App/android/app/.cxx/Debug/5u4wg3y2/x86/CMakeFiles/rebuild_cache.dir
