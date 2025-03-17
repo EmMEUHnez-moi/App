@@ -1,18 +1,14 @@
-import 'package:emmeuhnez_moi_app/MesTrajets/widget/MesTrajetsWidget.dart';
+import 'package:emmeuhnez_moi_app/MesTrajets/widget/mestrajetswidget.dart';
 import 'package:flutter/material.dart';
-
 
 class MesTrajetsScreen extends StatefulWidget {
   const MesTrajetsScreen({super.key});
-  
+
   @override
-  State<MesTrajetsScreen> createState() =>MesTrajetsScreenState();
-
-
+  State<MesTrajetsScreen> createState() => MesTrajetsScreenState();
 }
 
 /// Flutter code sample for [SearchBar].
-
 
 class SearchBarApp extends StatefulWidget {
   const SearchBarApp({super.key});
@@ -68,7 +64,8 @@ class SearchBarAppState extends State<SearchBarApp> {
                 ],
               );
             },
-            suggestionsBuilder: (BuildContext context, SearchController controller) {
+            suggestionsBuilder:
+                (BuildContext context, SearchController controller) {
               return List<ListTile>.generate(5, (int index) {
                 final String item = 'item $index';
                 return ListTile(

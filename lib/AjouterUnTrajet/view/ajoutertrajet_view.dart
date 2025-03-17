@@ -1,7 +1,8 @@
-import 'package:emmeuhnez_moi_app/Accueil/view/Accueil.dart';
-import 'package:emmeuhnez_moi_app/Accueil/widget/Waccueil.dart';
-import 'package:emmeuhnez_moi_app/AjouterUnTrajet/widget/Wajoutertrajet.dart';
-import 'package:emmeuhnez_moi_app/ChoixTrajetFav/view/Choixtrajetfav.dart';
+import 'package:emmeuhnez_moi_app/Accueil/view/accueil_view.dart';
+import 'package:emmeuhnez_moi_app/Accueil/widget/button_accueil.dart';
+import 'package:emmeuhnez_moi_app/AjouterUnTrajet/widget/champforumlaire_picker.dart';
+import 'package:emmeuhnez_moi_app/AjouterUnTrajet/widget/dropdownbutton_priveoupublic.dart';
+import 'package:emmeuhnez_moi_app/ChoixTrajetFav/view/choixtrajetfev_view.dart';
 import 'package:flutter/material.dart';
 
 class AjouterTrajetPage extends StatelessWidget {
