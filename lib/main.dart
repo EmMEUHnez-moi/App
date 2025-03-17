@@ -3,8 +3,6 @@ import 'ConnectInscrip/view/ConnectInscrip.dart';
 import 'MesTrajets/view/MesTrajetsScreen.dart';
 import 'MesFavoris/view/Favoris.dart';
 import 'package:flutter/material.dart';
-import 'ConnectInscrip.dart';
-
 
 void main() {
   runApp(const AppCovoit());
@@ -12,18 +10,20 @@ void main() {
 
 class AppCovoit extends StatelessWidget {
   const AppCovoit({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Essai',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.light),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple, brightness: Brightness.light),
         useMaterial3: true,
         brightness: Brightness.light,
       ),
       darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple, brightness: Brightness.dark),
         useMaterial3: true,
         brightness: Brightness.dark,
         /* dark theme settings */
@@ -62,10 +62,9 @@ class _FirstPageState extends State<FirstPage> {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
-  
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
-  
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -76,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
     FavorisScreen(),
     MessageScreen(),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,31 +89,26 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Accueil', 
-            backgroundColor: Colors.deepPurple
-          ),
+              icon: Icon(Icons.home),
+              label: 'Accueil',
+              backgroundColor: Colors.deepPurple),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
-            label: 'Mes Trajets',
-            backgroundColor: Colors.deepPurple
-          ),
+              icon: Icon(Icons.directions_car),
+              label: 'Mes Trajets',
+              backgroundColor: Colors.deepPurple),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Mes Favoris',
-            backgroundColor: Colors.deepPurple
-          ),
+              icon: Icon(Icons.favorite),
+              label: 'Mes Favoris',
+              backgroundColor: Colors.deepPurple),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Messagerie',
-            backgroundColor: Colors.deepPurple
-          ),
+              icon: Icon(Icons.message),
+              label: 'Messagerie',
+              backgroundColor: Colors.deepPurple),
         ],
       ),
     );
   }
 }
-
 
 class MessageScreen extends StatelessWidget {
   const MessageScreen({super.key});
