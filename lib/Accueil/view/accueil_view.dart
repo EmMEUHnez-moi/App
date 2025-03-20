@@ -10,7 +10,7 @@ class AccueilView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            appBar: AppBar(title: Text('Accueil'), actions: [
+            appBar: AppBar(title: Text('Accueil',style: TextStyle(color: Colors.deepPurple)), actions: [
               IconButton(
                   onPressed: () {
                     Navigator.push(context,
