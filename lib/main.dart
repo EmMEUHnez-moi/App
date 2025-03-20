@@ -1,3 +1,6 @@
+import 'package:emmeuhnez_moi_app/app_controler/cubit/app_controller_cubit.dart';
+import 'package:emmeuhnez_moi_app/app_controler/cubit_orientation/orientation_cubit.dart';
+import 'package:emmeuhnez_moi_app/app_controler/view/root_screen.dart';
 import 'package:emmeuhnez_moi_app/message/view/message_view.dart';
 import 'package:emmeuhnez_moi_app/profil/view/register_view.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +8,7 @@ import 'package:emmeuhnez_moi_app/accueil/view/accueil_view.dart';
 import 'package:emmeuhnez_moi_app/profil/view/connexion_view.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/trajets_view.dart';
 import 'package:emmeuhnez_moi_app/favoris/view/favoris_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const AppCovoit());
@@ -15,25 +19,32 @@ class AppCovoit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Essai',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple, brightness: Brightness.light),
-        useMaterial3: true,
-        brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple, brightness: Brightness.dark),
-        useMaterial3: true,
-        brightness: Brightness.dark,
-        /* dark theme settings */
-      ),
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
-      home: FirstPage(),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AppControllerCubit(),
+          ),
+          BlocProvider(create: (context) => OrientationCubit()),
+        ],
+        child: MaterialApp(
+          title: 'Flutter Essai',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.deepPurple, brightness: Brightness.light),
+            useMaterial3: true,
+            brightness: Brightness.light,
+          ),
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.deepPurple, brightness: Brightness.dark),
+            useMaterial3: true,
+            brightness: Brightness.dark,
+            /* dark theme settings */
+          ),
+          themeMode: ThemeMode.system,
+          debugShowCheckedModeBanner: false,
+          home: RootScreen(),
+        ));
   }
 }
 

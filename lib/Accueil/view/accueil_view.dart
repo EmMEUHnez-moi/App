@@ -10,22 +10,22 @@ class AccueilView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            appBar: AppBar(
-                title: CustomButton(
-                    label: "Ajouter un trajet",
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NewTrajetView()));
-                    }),
-                actions: [
-          IconButton(
+            appBar: AppBar(title: Text('Accueil'), actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilView()));
+                  },
+                  icon: Icon(Icons.person, color: Colors.deepPurple))
+            ]),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: CustomButton(
+              label: "Ajouter un trajet",
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilView()));
+                    MaterialPageRoute(builder: (context) => NewTrajetView()));
               },
-              icon: Icon(Icons.person, color: Colors.deepPurple))
-        ])));
+            )));
   }
 }

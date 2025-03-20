@@ -1,52 +1,46 @@
 import 'package:flutter/material.dart';
 
-class FavorisView extends StatelessWidget {
-  final ValueNotifier<int> _indice = ValueNotifier<int>(0);
-  final List<Widget> _pages = [TrajetfavPage(), UtilisateurfavPage()];
+class FavorisView extends StatefulWidget {
+  const FavorisView({super.key});
 
-  FavorisView({super.key});
+  @override
+  State<FavorisView> createState() => FavorisViewState();
+}
+
+class FavorisViewState extends State<FavorisView>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+  @override
+  void initState() {
+    tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Mes favoris", style: TextStyle(color: Colors.deepPurple)),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-              ),
-              child: Text("Favoris", style: TextStyle(color: Colors.white)),
+        appBar: AppBar(
+          title:
+              Text("Mes favoris", style: TextStyle(color: Colors.deepPurple)),
+          bottom: TabBar(controller: tabController, tabs: [
+            Tab(
+              text: "Utilisateurs",
             ),
-            ListTile(
-              title:
-                  Text("Trajets", style: TextStyle(color: Colors.deepPurple)),
-              onTap: () {
-                _indice.value = 0;
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text("Utilisateurs",
-                  style: TextStyle(color: Colors.deepPurple)),
-              onTap: () {
-                _indice.value = 1;
-                Navigator.pop(context);
-              },
-            ),
-          ],
+            Tab(
+              text: "Trajets",
+            )
+          ]),
         ),
-      ),
-      body: ValueListenableBuilder(
-          valueListenable: _indice,
-          builder: (context, selectedIndex, child) {
-            return _pages[selectedIndex];
-          }),
-    );
+        body: TabBarView(
+          controller: tabController,
+          children: [
+            TrajetfavPage(),
+            UtilisateurfavPage(),
+          ],
+        ));
   }
 }
 
@@ -55,12 +49,7 @@ class TrajetfavPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title:
-            Text("Trajets favoris", style: TextStyle(color: Colors.deepPurple)),
-      ),
-    );
+    return Scaffold();
   }
 }
 
@@ -69,11 +58,6 @@ class UtilisateurfavPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Utilisateurs favoris",
-            style: TextStyle(color: Colors.deepPurple)),
-      ),
-    );
+    return Scaffold();
   }
 }

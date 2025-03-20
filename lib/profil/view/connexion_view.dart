@@ -31,7 +31,7 @@ class ConnexionView extends StatelessWidget {
               ),
               Center(
                   child: CustomButton(
-                label: '',
+                label: 'Connexion',
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MyHomePage()));
