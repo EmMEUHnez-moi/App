@@ -1,7 +1,9 @@
-import 'package:emmeuhnez_moi_app/profil/cubit/login_cubit.dart';
-import 'package:emmeuhnez_moi_app/profil/repository/login_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:emmeuhnez_moi_app/profil/cubit/login_cubit.dart';
+import 'package:emmeuhnez_moi_app/profil/cubit/register_cubit.dart';
+import 'package:emmeuhnez_moi_app/profil/repository/login_repository.dart';
+import 'package:emmeuhnez_moi_app/profil/repository/register_repository.dart';
 import 'package:emmeuhnez_moi_app/app_controler/cubit/app_controller_cubit.dart';
 import 'package:emmeuhnez_moi_app/app_controler/cubit_orientation/orientation_cubit.dart';
 import 'package:emmeuhnez_moi_app/app_controler/view/root_screen.dart';
@@ -28,6 +30,9 @@ class AppCovoit extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => LoginBloc(LoginRepository()),
+        ),
+        BlocProvider(
+          create: (context) => RegisterBloc(RegisterRepository()),
         ),
         BlocProvider(create: (context) => OrientationCubit()),
       ],
