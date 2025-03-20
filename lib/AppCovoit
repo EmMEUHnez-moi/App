@@ -1,0 +1,50 @@
+import 'package:flutter/material.dart';
+import 'package:emmeuhnez_moi_app/profile.dart';
+
+void main() {
+  runApp(const AppCovoit());
+}
+
+class AppCovoit extends StatelessWidget {
+  const AppCovoit({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.light),
+        useMaterial3: true,
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        /* dark theme settings */
+      ),
+      themeMode: ThemeMode.system,
+      debugShowCheckedModeBanner: false,
+      home: Profile(),
+    );
+  }
+}
+
+class Profile extends StatelessWidget {
+  const Profile({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.top,
+          Image.asset('lib/images/profile.jpg'),
+        )
+      ),
+    );
+  }
+}
