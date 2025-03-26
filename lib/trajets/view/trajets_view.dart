@@ -59,9 +59,10 @@ class TrajetsViewState extends State<TrajetsView> {
               child: ListTile(
                 leading: Image.asset("assets/images/$avatar.jpg"),
                 title: Text(
-                    'Trajet $lieudepart à $lieuarrive Conducteur : $conducteur'),
-                subtitle: Text('1 Place $lieudepart à $date'),
-                trailing: Icon(Icons.more_vert),
+                    'Trajet $lieudepart à $lieuarrive Conducteur : $conducteur',style: TextStyle(color: Colors.white)),
+                subtitle: Text('1 Place $lieudepart à $date',style: TextStyle(color: Colors.white)),
+                trailing: Icon(Icons.more_vert, color: Colors.white),
+                tileColor: Colors.deepPurple[300],
               ),
             );
           },

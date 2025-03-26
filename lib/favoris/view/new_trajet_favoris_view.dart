@@ -7,7 +7,7 @@ class NewTrajetFavorisView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-      title: Text("Choix d'un trajet favoris"),
+      title: Text("Choix d'un trajet favoris",style: TextStyle(color: Colors.deepPurple)),
     ));
   }
 }
