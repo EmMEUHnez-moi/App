@@ -4,10 +4,14 @@ class ChampFormulaire extends StatelessWidget {
   final String label;
   final String texteduchamp;
   final bool cacheoupas;
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   const ChampFormulaire(
-      {super.key, required this.label, required this.texteduchamp, required this.cacheoupas, required this.controller});
+      {super.key,
+      required this.label,
+      required this.texteduchamp,
+      required this.cacheoupas,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
