@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TrajetsView extends StatefulWidget {
-  const TrajetsView({super.key});
+class TrajetfavView extends StatefulWidget {
+  const TrajetfavView({super.key});
 
   @override
-  State<TrajetsView> createState() => TrajetsViewState();
+  State<TrajetfavView> createState() => TrajetfavViewState();
 }
 
-class TrajetsViewState extends State<TrajetsView> {
+class TrajetfavViewState extends State<TrajetfavView> {
   final listeCovoit = [
     {
       "Conducteur": "Coumba Niakate",
@@ -28,9 +28,6 @@ class TrajetsViewState extends State<TrajetsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Mes Trajets',style: TextStyle(color: Colors.deepPurple)),
-      ),
       body: Center(
         child: ListView.builder(
           itemCount: listeCovoit.length,
