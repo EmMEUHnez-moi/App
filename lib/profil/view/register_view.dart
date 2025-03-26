@@ -15,12 +15,13 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordconfirmationController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   bool _areFieldsIdentical() {
-    return _passwordconfirmationController.text == _passwordController.text;
+    return _confirmPasswordController.text == _passwordController.text;
   }
 
   @override
@@ -49,9 +50,15 @@ class _RegisterViewState extends State<RegisterView> {
                   child: CustomButton(
                 label: "S'inscrire",
                 onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false & _areFieldsIdentical()) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegisterSuiteView()));}
+                  if (_formKey.currentState?.validate() ??
+                      false & _areFieldsIdentical()) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterSuiteView(
+                                _emailController.text,
+                                _passwordController.text)));
+                  }
                 },
               ))
             ])));
@@ -59,17 +66,24 @@ class _RegisterViewState extends State<RegisterView> {
 }
 
 class RegisterSuiteView extends StatefulWidget {
-  const RegisterSuiteView({super.key});
+  final String email;
+  final String password;
+  const RegisterSuiteView(this.email, this.password);
 
   @override
-  _RegisterSuiteViewState createState() => _RegisterSuiteViewState();
+  _RegisterSuiteViewState createState() =>
+      _RegisterSuiteViewState(email, password);
 }
 
 class _RegisterSuiteViewState extends State<RegisterSuiteView> {
-  final TextEditingController _nomController = TextEditingController();
-  final TextEditingController _prenomController = TextEditingController();
-  final TextEditingController _datedenaissanceController = TextEditingController();
-  final TextEditingController _numerodetelController = TextEditingController();
+  final String email;
+  final String password;
+  _RegisterSuiteViewState(this.email, this.password);
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _dateOfBirthController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -123,8 +137,8 @@ class _RegisterSuiteViewState extends State<RegisterSuiteView> {
                       final dateOfBirth = _dateOfBirthController.text;
                       final phoneNumber = _phoneNumberController.text;
                       context.read<RegisterBloc>().add(RegisterSubmitted(
-                          email: email!,
-                          password: password!,
+                          email: email,
+                          password: password,
                           name: name,
                           surname: surname,
                           dateOfBirth: dateOfBirth,

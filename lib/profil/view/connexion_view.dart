@@ -28,60 +28,64 @@ class _ConnexionViewState extends State<ConnexionView> {
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
-              key: _formKey,
-              child: Column(children: <Widget>[
-              ChampFormulaire(
-                label: "Identifiant ou mail",
-                texteduchamp: '',
-                controller: _emailController,
-              ),
-              ChampFormulaire(
-                label: "Mot de passe",
-                texteduchamp: '',
-                controller: _passwordController,
-              ),
-              Center(
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterView()));
-                    },
-                    child: Text(
-                        "Vous n'avez pas de compte, inscrivez-vous en cliquant ici")),
-              ),
-              BlocConsumer<LoginBloc, LoginState>(listener: (context, state) {
-                if (state is LoginSuccess) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Connexion réussie !")));
-                } else if (state is LoginFailure) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Erreur : ${state.error}")));
-                }
-              }, builder: (context, state) {
-                if (state is LoginLoading) {
-                  return CircularProgressIndicator();
-                }
-                return ElevatedButton(
-                  onPressed: () {
-                    final email = _emailController.text;
-                    final password = _passwordController.text;
-                    context
-                        .read<LoginBloc>()
-                        .add(LoginSubmitted(email: email, password: password));
-                  },
-                  child: Center(
-                  child: CustomButton(
-                label: 'Connexion',
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));}
-                },
-              ))
-                );
-              }),
-            ])));
+                key: _formKey,
+                child: Column(children: <Widget>[
+                  ChampFormulaire(
+                    label: "Identifiant ou mail",
+                    texteduchamp: '',
+                    cacheoupas: false,
+                    controller: _emailController,
+                  ),
+                  ChampFormulaire(
+                    label: "Mot de passe",
+                    texteduchamp: '',
+                    cacheoupas: true,
+                    controller: _passwordController,
+                  ),
+                  Center(
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterView()));
+                        },
+                        child: Text(
+                            "Vous n'avez pas de compte, inscrivez-vous en cliquant ici")),
+                  ),
+                  BlocConsumer<LoginBloc, LoginState>(
+                      listener: (context, state) {
+                    if (state is LoginSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Connexion réussie !")));
+                    } else if (state is LoginFailure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Erreur : ${state.error}")));
+                    }
+                  }, builder: (context, state) {
+                    if (state is LoginLoading) {
+                      return CircularProgressIndicator();
+                    }
+                    return ElevatedButton(
+                        onPressed: () {
+                          final email = _emailController.text;
+                          final password = _passwordController.text;
+                          context.read<LoginBloc>().add(
+                              LoginSubmitted(email: email, password: password));
+                        },
+                        child: Center(
+                            child: CustomButton(
+                          label: 'Connexion',
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyHomePage()));
+                            }
+                          },
+                        )));
+                  }),
+                ]))));
   }
 }
