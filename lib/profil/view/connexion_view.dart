@@ -6,10 +6,18 @@ import 'package:emmeuhnez_moi_app/main.dart';
 import 'package:emmeuhnez_moi_app/profil/view/register_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ConnexionView extends StatelessWidget {
-  ConnexionView({super.key});
+class ConnexionView extends StatefulWidget {
+  const ConnexionView({super.key});
+
+  @override
+  _ConnexionViewState createState() => _ConnexionViewState();
+}
+
+class _ConnexionViewState extends State<ConnexionView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +27,9 @@ class ConnexionView extends StatelessWidget {
         ),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(children: <Widget>[
+            child: Form(
+              key: _formKey,
+              child: Column(children: <Widget>[
               ChampFormulaire(
                 label: "Identifiant ou mail",
                 texteduchamp: '',
@@ -61,7 +71,15 @@ class ConnexionView extends StatelessWidget {
                         .read<LoginBloc>()
                         .add(LoginSubmitted(email: email, password: password));
                   },
-                  child: Text("Connexion"),
+                  child: Center(
+                  child: CustomButton(
+                label: 'Connexion',
+                onPressed: () {
+                  if (_formKey.currentState?.validate() ?? false) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));}
+                },
+              ))
                 );
               }),
             ])));

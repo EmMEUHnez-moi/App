@@ -1,3 +1,5 @@
+import 'package:emmeuhnez_moi_app/Accueil/widget/button_accueil.dart';
+import 'package:emmeuhnez_moi_app/profil/view/connexion_view.dart';
 import 'package:flutter/material.dart';
 
 class ProfilView extends StatelessWidget {
@@ -7,7 +9,7 @@ class ProfilView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil'),
+        title: const Text('Profil', style: TextStyle(color: Colors.deepPurple)),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
@@ -102,6 +104,15 @@ class ProfilView extends StatelessWidget {
           ],
         ),
       ),
+      /*  body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: CustomButton(
+            label: 'Déconnexion', 
+            onPressed: () {
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ConnexionView()));
+              },)
+          */   // TEMPORAIRE : seulement pour les tests
     );
   }
 }

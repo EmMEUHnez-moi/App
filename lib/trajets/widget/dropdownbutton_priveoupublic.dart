@@ -24,7 +24,7 @@ class _ListederoulanteState extends State<PriveouPublic> {
         items: _options.map<DropdownMenuItem<String>>((String valeur) {
           return DropdownMenuItem<String>(
             value: valeur,
-            child: Text(valeur),
+            child: Text(valeur,style: TextStyle(color: Colors.deepPurple)),
           );
         }).toList(),
       ),

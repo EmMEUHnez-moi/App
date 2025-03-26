@@ -5,13 +5,24 @@ import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
 import 'package:emmeuhnez_moi_app/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegisterView extends StatelessWidget {
-  RegisterView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
+  @override
+  _RegisterViewState createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _passwordconfirmationController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  bool _areFieldsIdentical() {
+    return _passwordconfirmationController.text == _passwordController.text;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,47 +33,45 @@ class RegisterView extends StatelessWidget {
               ChampFormulaire(
                   label: "Mail",
                   texteduchamp: '',
+                  cacheoupas: false,
                   controller: _emailController),
               ChampFormulaire(
                   label: "Mot de passe",
                   texteduchamp: '',
+                  cacheoupas: true,
                   controller: _passwordController),
               ChampFormulaire(
                   label: "Confirmation du mot de passe",
                   texteduchamp: '',
+                  cacheoupas: true,
                   controller: _confirmPasswordController),
               Center(
                   child: CustomButton(
                 label: "S'inscrire",
                 onPressed: () {
-                  final email = _emailController.text;
-                  final password = _passwordController.text;
-                  final confirmPassword = _confirmPasswordController.text;
-                  if (password != confirmPassword) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content:
-                            Text("Les mots de passe ne correspondent pas")));
-                    return;
-                  }
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RegisterSuiteView(
-                              email: email, password: password)));
+                  if (_formKey.currentState?.validate() ?? false & _areFieldsIdentical()) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RegisterSuiteView()));}
                 },
               ))
             ])));
   }
 }
 
-class RegisterSuiteView extends StatelessWidget {
-  RegisterSuiteView({super.key, this.email, this.password});
-  final String? email;
-  final String? password;
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _surnameController = TextEditingController();
-  final TextEditingController _dateOfBirthController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
+class RegisterSuiteView extends StatefulWidget {
+  const RegisterSuiteView({super.key});
+
+  @override
+  _RegisterSuiteViewState createState() => _RegisterSuiteViewState();
+}
+
+class _RegisterSuiteViewState extends State<RegisterSuiteView> {
+  final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _prenomController = TextEditingController();
+  final TextEditingController _datedenaissanceController = TextEditingController();
+  final TextEditingController _numerodetelController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -77,18 +86,22 @@ class RegisterSuiteView extends StatelessWidget {
                 ChampFormulaire(
                     label: "Nom",
                     texteduchamp: '',
+                    cacheoupas: false,
                     controller: _surnameController),
                 ChampFormulaire(
                     label: "Prénom",
                     texteduchamp: '',
+                    cacheoupas: false,
                     controller: _nameController),
                 ChampFormulaire(
                     label: "Date de naissance",
                     texteduchamp: 'JJ/MM/AAAA',
+                    cacheoupas: false,
                     controller: _dateOfBirthController),
                 ChampFormulaire(
                     label: "Numéro de téléphone",
                     texteduchamp: '',
+                    cacheoupas: false,
                     controller: _phoneNumberController),
                 BlocConsumer<RegisterBloc, RegisterState>(
                     listener: (context, state) {
