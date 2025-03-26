@@ -53,7 +53,8 @@ class AppCovoit extends StatelessWidget {
           ),
           themeMode: ThemeMode.system,
           debugShowCheckedModeBanner: false,
-          home: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+          home:
+              RootScreen() /*BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
             if (state is LoginSuccess) {
               return RootScreen();
             } else if (state is LoginFailure) {
@@ -61,7 +62,8 @@ class AppCovoit extends StatelessWidget {
             } else {
               return FirstPage();
             }
-          })),
+          })*/
+          ),
     );
   }
 }
