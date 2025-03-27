@@ -1,3 +1,4 @@
+import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
 import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
 
@@ -39,7 +40,7 @@ class TrajetsViewState extends State<TrajetsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mes Trajets'),
+        title: Text('Mes Trajets',style: TextStyle(color: Colors.deepPurple)),
         actions:[
           IconButton(
             onPressed: () {
@@ -48,7 +49,7 @@ class TrajetsViewState extends State<TrajetsView> {
               delegate: CustomSearchDelegate(listeCovoit),
               );
             },
-          icon: const Icon(Icons.search),
+          icon: const Icon(Icons.search, color: Colors.deepPurple),
           ),
         ]
       ),
@@ -57,55 +58,22 @@ class TrajetsViewState extends State<TrajetsView> {
           itemCount: listeCovoit.length,
           itemBuilder: (context, index) {
             final listedescovoits = listeCovoit[index];
-            final avatar = listedescovoits['avatar'];
-            final conducteur = listedescovoits['Conducteur'];
-            final date = listedescovoits['Date'];
-            final lieudepart = listedescovoits['Lieu Départ'];
-            final lieuarrive = listedescovoits['Lieu arrivé'];
+            /*final actions = [
+              () => annulerTrajet(listedescovoits),
+              () => ajoutOUsupprFavoris(listedescovoits),
+            ];*/
 
-             return Card(
-              shape : RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              color : Colors.deepPurple[300],
-              child: ListTile(
-                leading: Image.asset("assets/images/$avatar.jpg"),
-                title: Text('Trajet $lieudepart → $lieuarrive\nConducteur : $conducteur',style: TextStyle(color: Colors.white)),
-                subtitle: Text('1 Place - Départ : $date',style: TextStyle(color: Colors.white)),
-                trailing: PopupMenuButton<String>(
-                  icon: const Icon(Icons.more_vert, color: Colors.white),
-                  onSelected: (String value) {
-                    if (value == 'Réserver') {
-                      // Action pour réserver
-                    } else if (value == 'Favoris') {
-                      // Action pour ajouter aux favoris
-                    }
-                  },
-                  itemBuilder: (BuildContext context) {
-                    return [
-                      const PopupMenuItem<String>(
-                        value: 'Réserver',
-                        child: Text('Réserver'),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'Favoris',
-                        child: Text('Ajouter aux favoris'),
-                      ),
-                    ];
-                  },
-                ),
-              ),
-            );
+            return TrajetCard(
+              trajetDetails: listedescovoits, 
+              /*actionLabel1: "Annuler",
+              actionLabel2: "Ajouter/Supprimer aux favoris", // condition ajout ou suppr des favoris
+              actions: actions*/);
           },
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
 
 class CustomSearchDelegate extends SearchDelegate {
   final List<Map<String, String>> trajets;
