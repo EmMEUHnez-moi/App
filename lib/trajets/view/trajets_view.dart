@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
 
 
 class TrajetsView extends StatefulWidget {
@@ -24,7 +24,15 @@ class TrajetsViewState extends State<TrajetsView> {
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
       "avatar": "Siege",
+    },
+    {
+      "Conducteur": "William Machecourt",
+      "Date": "12H00",
+      "Lieu Départ": "Ecole",
+      "Lieu arrivé": "MEUH Bat P",
+      "avatar": "Siege",
     }
+
   ];
 
   @override
@@ -55,14 +63,35 @@ class TrajetsViewState extends State<TrajetsView> {
             final lieudepart = listedescovoits['Lieu Départ'];
             final lieuarrive = listedescovoits['Lieu arrivé'];
 
-            return Card(
+             return Card(
+              shape : RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              color : Colors.deepPurple[300],
               child: ListTile(
                 leading: Image.asset("assets/images/$avatar.jpg"),
-                title: Text(
-                    'Trajet $lieudepart à $lieuarrive Conducteur : $conducteur',style: TextStyle(color: Colors.white)),
-                subtitle: Text('1 Place $lieudepart à $date',style: TextStyle(color: Colors.white)),
-                trailing: Icon(Icons.more_vert, color: Colors.white),
-                tileColor: Colors.deepPurple[300],
+                title: Text('Trajet $lieudepart → $lieuarrive\nConducteur : $conducteur',style: TextStyle(color: Colors.white)),
+                subtitle: Text('1 Place - Départ : $date',style: TextStyle(color: Colors.white)),
+                trailing: PopupMenuButton<String>(
+                  icon: const Icon(Icons.more_vert, color: Colors.white),
+                  onSelected: (String value) {
+                    if (value == 'Réserver') {
+                      // Action pour réserver
+                    } else if (value == 'Favoris') {
+                      // Action pour ajouter aux favoris
+                    }
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      const PopupMenuItem<String>(
+                        value: 'Réserver',
+                        child: Text('Réserver'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'Favoris',
+                        child: Text('Ajouter aux favoris'),
+                      ),
+                    ];
+                  },
+                ),
               ),
             );
           },
@@ -82,6 +111,8 @@ class CustomSearchDelegate extends SearchDelegate {
   final List<Map<String, String>> trajets;
 
   CustomSearchDelegate(this.trajets);
+
+
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -116,8 +147,11 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var trajet = matchQuery[index];
         return ListTile(
-          title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
+         title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
           subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
+          onTap: () {
+            openTrajetDetails(context, trajet);
+          },
         );
       },
     );

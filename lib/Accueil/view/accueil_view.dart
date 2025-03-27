@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/new_trajet_view.dart';
 import 'package:emmeuhnez_moi_app/profil/view/profil_view.dart';
+import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
 
 
 
@@ -85,6 +86,9 @@ class AccueilViewState extends State<AccueilView> {
                 title: Text('Trajet $lieudepart → $lieuarrive\nConducteur : $conducteur'),
                 subtitle: Text('1 Place - Départ : $date'),
                 trailing: const Icon(Icons.more_vert),
+                onTap: () {
+                  openTrajetDetails(context, listeCovoit[index]);
+                },
               ),
             );
           },
