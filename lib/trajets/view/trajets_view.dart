@@ -1,3 +1,4 @@
+import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
 import 'package:flutter/material.dart';
 
 
@@ -31,7 +32,7 @@ class TrajetsViewState extends State<TrajetsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mes Trajets'),
+        title: Text('Mes Trajets',style: TextStyle(color: Colors.deepPurple)),
         actions:[
           IconButton(
             onPressed: () {
@@ -40,7 +41,7 @@ class TrajetsViewState extends State<TrajetsView> {
               delegate: CustomSearchDelegate(listeCovoit),
               );
             },
-          icon: const Icon(Icons.search),
+          icon: const Icon(Icons.search, color: Colors.deepPurple),
           ),
         ]
       ),
@@ -49,34 +50,22 @@ class TrajetsViewState extends State<TrajetsView> {
           itemCount: listeCovoit.length,
           itemBuilder: (context, index) {
             final listedescovoits = listeCovoit[index];
-            final avatar = listedescovoits['avatar'];
-            final conducteur = listedescovoits['Conducteur'];
-            final date = listedescovoits['Date'];
-            final lieudepart = listedescovoits['Lieu Départ'];
-            final lieuarrive = listedescovoits['Lieu arrivé'];
+            /*final actions = [
+              () => annulerTrajet(listedescovoits),
+              () => ajoutOUsupprFavoris(listedescovoits),
+            ];*/
 
-            return Card(
-              child: ListTile(
-                leading: Image.asset("assets/images/$avatar.jpg"),
-                title: Text(
-                    'Trajet $lieudepart à $lieuarrive Conducteur : $conducteur',style: TextStyle(color: Colors.white)),
-                subtitle: Text('1 Place $lieudepart à $date',style: TextStyle(color: Colors.white)),
-                trailing: Icon(Icons.more_vert, color: Colors.white),
-                tileColor: Colors.deepPurple[300],
-              ),
-            );
+            return TrajetCard(
+              trajetDetails: listedescovoits, 
+              /*actionLabel1: "Annuler",
+              actionLabel2: "Ajouter/Supprimer aux favoris", // condition ajout ou suppr des favoris
+              actions: actions*/);
           },
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
 
 class CustomSearchDelegate extends SearchDelegate {
   final List<Map<String, String>> trajets;
