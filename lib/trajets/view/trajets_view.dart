@@ -2,7 +2,6 @@ import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
 import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
 
-
 class TrajetsView extends StatefulWidget {
   const TrajetsView({super.key});
 
@@ -33,26 +32,25 @@ class TrajetsViewState extends State<TrajetsView> {
       "Lieu arrivé": "MEUH Bat P",
       "avatar": "Siege",
     }
-
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mes Trajets',style: TextStyle(color: Colors.deepPurple)),
-        actions:[
-          IconButton(
-            onPressed: () {
-              showSearch(
-              context: context,
-              delegate: CustomSearchDelegate(listeCovoit),
-              );
-            },
-          icon: const Icon(Icons.search, color: Colors.deepPurple),
-          ),
-        ]
-      ),
+          title:
+              Text('Mes Trajets', style: TextStyle(color: Colors.deepPurple)),
+          actions: [
+            IconButton(
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: CustomSearchDelegate(listeCovoit),
+                );
+              },
+              icon: const Icon(Icons.search, color: Colors.deepPurple),
+            ),
+          ]),
       body: Center(
         child: ListView.builder(
           itemCount: listeCovoit.length,
@@ -64,10 +62,11 @@ class TrajetsViewState extends State<TrajetsView> {
             ];*/
 
             return TrajetCard(
-              trajetDetails: listedescovoits, 
+              trajetDetails: listedescovoits,
               /*actionLabel1: "Annuler",
               actionLabel2: "Ajouter/Supprimer aux favoris", // condition ajout ou suppr des favoris
-              actions: actions*/);
+              actions: actions*/
+            );
           },
         ),
       ),
@@ -79,8 +78,6 @@ class CustomSearchDelegate extends SearchDelegate {
   final List<Map<String, String>> trajets;
 
   CustomSearchDelegate(this.trajets);
-
-
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -107,7 +104,8 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List<Map<String, String>> matchQuery = trajets.where((trajet) {
-      return trajet.values.any((value) => value.toLowerCase().contains(query.toLowerCase()));
+      return trajet.values
+          .any((value) => value.toLowerCase().contains(query.toLowerCase()));
     }).toList();
 
     return ListView.builder(
@@ -115,8 +113,9 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var trajet = matchQuery[index];
         return ListTile(
-         title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
-          subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
+          title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
+          subtitle: Text(
+              'Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
           onTap: () {
             openTrajetDetails(context, trajet);
           },

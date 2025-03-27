@@ -9,7 +9,7 @@ class NewTrajetView extends StatefulWidget {
   const NewTrajetView({super.key});
 
   @override
-  _NewTrajetViewState createState() => _NewTrajetViewState();
+  State<NewTrajetView> createState() => _NewTrajetViewState();
 }
 
 class _NewTrajetViewState extends State<NewTrajetView> {
@@ -25,26 +25,53 @@ class _NewTrajetViewState extends State<NewTrajetView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Ajouter un trajet",style: TextStyle(color: Colors.deepPurple)), actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NewTrajetFavorisView()));
-              },
-              icon: Icon(Icons.favorite, color: Colors.deepPurple))
-        ]),
+        appBar: AppBar(
+            title: Text("Ajouter un trajet",
+                style: TextStyle(color: Colors.deepPurple)),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NewTrajetFavorisView()));
+                  },
+                  icon: Icon(Icons.favorite, color: Colors.deepPurple))
+            ]),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
-                ChampFormulaire(label: "Lieu de départ", texteduchamp: '',cacheoupas: false, controller: _departController),
-                ChampFormulaire(label: "Destination", texteduchamp: '', cacheoupas: false, controller: _destinationController),
-                ChampFormulaire(label: "Date de départ", texteduchamp: 'JJ/MM/AAAA', cacheoupas: false, controller: _dateController),
-                ChampFormulaire(label: "Horaire de départ", texteduchamp: 'HH:MM', cacheoupas: false, controller: _horaireController),
-                ChampFormulaire(label: "Places disponibles", texteduchamp: '', cacheoupas: false, controller: _placesdispoController),
-                ChampFormulaire(label: "Lieu de RDV", texteduchamp: '', cacheoupas: false, controller: _lieurdvController),
+                ChampFormulaire(
+                    label: "Lieu de départ",
+                    texteduchamp: '',
+                    cacheoupas: false,
+                    controller: _departController),
+                ChampFormulaire(
+                    label: "Destination",
+                    texteduchamp: '',
+                    cacheoupas: false,
+                    controller: _destinationController),
+                ChampFormulaire(
+                    label: "Date de départ",
+                    texteduchamp: 'JJ/MM/AAAA',
+                    cacheoupas: false,
+                    controller: _dateController),
+                ChampFormulaire(
+                    label: "Horaire de départ",
+                    texteduchamp: 'HH:MM',
+                    cacheoupas: false,
+                    controller: _horaireController),
+                ChampFormulaire(
+                    label: "Places disponibles",
+                    texteduchamp: '',
+                    cacheoupas: false,
+                    controller: _placesdispoController),
+                ChampFormulaire(
+                    label: "Lieu de RDV",
+                    texteduchamp: '',
+                    cacheoupas: false,
+                    controller: _lieurdvController),
                 Center(
                   child: PriveouPublic(),
                 ),
@@ -53,8 +80,11 @@ class _NewTrajetViewState extends State<NewTrajetView> {
                     label: 'Ajouter',
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AccueilView()));}
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AccueilView()));
+                      }
                     },
                   ),
                 )

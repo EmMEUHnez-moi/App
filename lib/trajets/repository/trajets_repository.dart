@@ -2,18 +2,22 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class TrajetsRepository {
-  Future<void> createTrip(String lieu_de_depart, String destination, String date_de_depart, String horaire_de_depart, int places_disponibles) async {
+  Future<void> createTrip(
+      String lieuDeDepart,
+      String destination,
+      String dateDeDepart,
+      String horaireDeDepart,
+      int placesDisponibles) async {
     const url = 'http://127.0.0.1:8080/trip';
     final uri = Uri.parse(url);
     final body = jsonEncode({
-      'from_location': lieu_de_depart,
+      'from_location': lieuDeDepart,
       'to_location': destination,
-      'start_date' : date_de_depart,
-      'end date' : date_de_depart,
-      'hour_of_departure' : horaire_de_depart,
-      'hour_of_arrival' : horaire_de_depart,
-      'number_of_seats' : places_disponibles,
-
+      'start_date': dateDeDepart,
+      'end date': dateDeDepart,
+      'hour_of_departure': horaireDeDepart,
+      'hour_of_arrival': horaireDeDepart,
+      'number_of_seats': placesDisponibles,
     });
     final response = await post(uri,
         headers: {'Content-Type': 'application/json'}, body: body);

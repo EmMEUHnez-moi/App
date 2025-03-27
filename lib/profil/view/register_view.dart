@@ -2,14 +2,13 @@ import 'package:emmeuhnez_moi_app/profil/cubit/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/trajets/widget/champforumlaire_picker.dart';
 import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
-import 'package:emmeuhnez_moi_app/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
   @override
-  _RegisterViewState createState() => _RegisterViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
 class _RegisterViewState extends State<RegisterView> {
@@ -68,18 +67,14 @@ class _RegisterViewState extends State<RegisterView> {
 class RegisterSuiteView extends StatefulWidget {
   final String email;
   final String password;
-  const RegisterSuiteView(this.email, this.password);
+  const RegisterSuiteView(this.email, this.password, {super.key});
 
   @override
-  _RegisterSuiteViewState createState() =>
-      _RegisterSuiteViewState(email, password);
+  State<RegisterSuiteView> createState() => _RegisterSuiteViewState();
 }
 
 class _RegisterSuiteViewState extends State<RegisterSuiteView> {
-  final String email;
-  final String password;
-  _RegisterSuiteViewState(this.email, this.password);
-  final TextEditingController _passwordController = TextEditingController();
+  _RegisterSuiteViewState();
   final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dateOfBirthController = TextEditingController();
@@ -137,8 +132,8 @@ class _RegisterSuiteViewState extends State<RegisterSuiteView> {
                       final dateOfBirth = _dateOfBirthController.text;
                       final phoneNumber = _phoneNumberController.text;
                       context.read<RegisterBloc>().add(RegisterSubmitted(
-                          email: email,
-                          password: password,
+                          email: widget.email,
+                          password: widget.password,
                           name: name,
                           surname: surname,
                           dateOfBirth: dateOfBirth,

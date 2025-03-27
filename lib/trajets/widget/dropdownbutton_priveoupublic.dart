@@ -4,7 +4,7 @@ class PriveouPublic extends StatefulWidget {
   const PriveouPublic({super.key});
 
   @override
-  _ListederoulanteState createState() => _ListederoulanteState();
+  State<PriveouPublic> createState() => _ListederoulanteState();
 }
 
 class _ListederoulanteState extends State<PriveouPublic> {
@@ -24,7 +24,7 @@ class _ListederoulanteState extends State<PriveouPublic> {
         items: _options.map<DropdownMenuItem<String>>((String valeur) {
           return DropdownMenuItem<String>(
             value: valeur,
-            child: Text(valeur,style: TextStyle(color: Colors.deepPurple)),
+            child: Text(valeur, style: TextStyle(color: Colors.deepPurple)),
           );
         }).toList(),
       ),
