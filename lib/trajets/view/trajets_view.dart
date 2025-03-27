@@ -1,6 +1,6 @@
 import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
 import 'package:flutter/material.dart';
-
+import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
 
 
 class TrajetsView extends StatefulWidget {
@@ -25,7 +25,15 @@ class TrajetsViewState extends State<TrajetsView> {
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
       "avatar": "Siege",
+    },
+    {
+      "Conducteur": "William Machecourt",
+      "Date": "12H00",
+      "Lieu Départ": "Ecole",
+      "Lieu arrivé": "MEUH Bat P",
+      "avatar": "Siege",
     }
+
   ];
 
   @override
@@ -72,6 +80,8 @@ class CustomSearchDelegate extends SearchDelegate {
 
   CustomSearchDelegate(this.trajets);
 
+
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -105,8 +115,11 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var trajet = matchQuery[index];
         return ListTile(
-          title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
+         title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
           subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
+          onTap: () {
+            openTrajetDetails(context, trajet);
+          },
         );
       },
     );
