@@ -8,11 +8,12 @@ class FavorisView extends StatefulWidget {
 }
 
 class FavorisViewState extends State<FavorisView>
-    with SingleTickerProviderStateMixin {
+  with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
       setState(() {});
     });
@@ -22,27 +23,29 @@ class FavorisViewState extends State<FavorisView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title:
-              Text("Mes favoris", style: TextStyle(color: Colors.deepPurple)),
-          bottom: TabBar(controller: tabController, tabs: [
-            Tab(
-              text: "Utilisateurs",
-            ),
-            Tab(
-              text: "Trajets",
-            )
-          ]),
-        ),
-        body: TabBarView(
-          controller: tabController,
-          children: [
-            TrajetfavPage(),
-            UtilisateurfavPage(),
-          ],
-        ));
+      appBar: AppBar(
+        title: Text("Mes favoris", style: TextStyle(color: Colors.deepPurple)),
+        bottom: TabBar(controller: tabController, tabs: [
+          Tab(
+            text: "Utilisateurs",
+          ),
+          Tab(
+            text: "Trajets",
+          )
+        ]),
+      ),
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          TrajetfavPage(),
+          UtilisateurfavPage(),
+        ],
+      ),
+    );
   }
 }
+
+
 
 class TrajetfavPage extends StatelessWidget {
   const TrajetfavPage({super.key});
