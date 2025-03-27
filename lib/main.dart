@@ -1,14 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:emmeuhnez_moi_app/profil/cubit/login_cubit.dart';
+import 'package:emmeuhnez_moi_app/profil/cubit/register_cubit.dart';
+import 'package:emmeuhnez_moi_app/profil/repository/login_repository.dart';
+import 'package:emmeuhnez_moi_app/profil/repository/register_repository.dart';
 import 'package:emmeuhnez_moi_app/app_controler/cubit/app_controller_cubit.dart';
 import 'package:emmeuhnez_moi_app/app_controler/cubit_orientation/orientation_cubit.dart';
 import 'package:emmeuhnez_moi_app/app_controler/view/root_screen.dart';
 import 'package:emmeuhnez_moi_app/message/view/message_view.dart';
 import 'package:emmeuhnez_moi_app/profil/view/register_view.dart';
-import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/accueil/view/accueil_view.dart';
 import 'package:emmeuhnez_moi_app/profil/view/connexion_view.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/trajets_view.dart';
 import 'package:emmeuhnez_moi_app/favoris/view/favoris_view.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const AppCovoit());
@@ -20,13 +24,19 @@ class AppCovoit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => AppControllerCubit(),
-          ),
-          BlocProvider(create: (context) => OrientationCubit()),
-        ],
-        child: MaterialApp(
+      providers: [
+        BlocProvider(
+          create: (context) => AppControllerCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LoginBloc(LoginRepository()),
+        ),
+        BlocProvider(
+          create: (context) => RegisterBloc(RegisterRepository()),
+        ),
+        BlocProvider(create: (context) => OrientationCubit()),
+      ],
+      child: MaterialApp(
           title: 'Flutter Essai',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
@@ -43,8 +53,18 @@ class AppCovoit extends StatelessWidget {
           ),
           themeMode: ThemeMode.system,
           debugShowCheckedModeBanner: false,
-          home: RootScreen(),
-        ));
+          home:
+              RootScreen() /*BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+            if (state is LoginSuccess) {
+              return RootScreen();
+            } else if (state is LoginFailure) {
+              return FirstPage();
+            } else {
+              return FirstPage();
+            }
+          })*/
+          ),
+    );
   }
 }
 

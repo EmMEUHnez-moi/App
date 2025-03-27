@@ -1,3 +1,5 @@
+import 'package:emmeuhnez_moi_app/Accueil/widget/button_accueil.dart';
+import 'package:emmeuhnez_moi_app/profil/view/connexion_view.dart';
 import 'package:flutter/material.dart';
 
 class ProfilView extends StatefulWidget {
@@ -23,8 +25,8 @@ class ProfilViewState extends State<ProfilView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profil', style: TextStyle(color: Colors.deepPurple)),
+        appBar: AppBar(
+      title: Text('Profil', style: TextStyle(color: Colors.deepPurple)),
         bottom: TabBar(controller: tabController, tabs: [
           Tab(
               child: Text(
@@ -54,7 +56,76 @@ class InformationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Spacer(),
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/profile.jpg'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                Spacer(),
+                
+                Spacer(),
+              ],
+            ),
+            Text(
+              "Nom\nPrénom",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
+                // fontFamily: 'PlaywriteHU',
+              ),
+            ),
+            SizedBox(height: 20), //j'espace le texte des boutons
+            Container(
+                width: 400,
+                height: 320,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.deepPurple,
+                    width: 3,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListView(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      ListTile(
+                          leading: Icon(Icons.email),
+                          title: Text('Adresse email :')),
+                      ListTile(
+                          leading: Icon(Icons.phone),
+                          title: Text('Numéro de téléphone :')),
+                      ListTile(leading: Icon(Icons.man), title: Text('Etat :')),
+                      ListTile(
+                          leading: Icon(Icons.home), title: Text('Bâtiment :')),
+                      ListTile(
+                          leading: Icon(Icons.airport_shuttle_rounded),
+                          title: Text('Modèle du véhicule :')),
+                      ListTile(
+                          leading: Icon(Icons.check_rounded),
+                          title: Text('Nombre de trajets effectués :'))
+                    ]))
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -140,3 +211,4 @@ class ParametrePage extends StatelessWidget {
     );
   }
 }
+
