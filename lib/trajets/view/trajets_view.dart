@@ -16,6 +16,7 @@ class TrajetsViewState extends State<TrajetsView> {
       "Date": "18h05",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat N",
+      "Nombre de places": "4",
       "avatar": "volant",
     },
     {
@@ -23,6 +24,7 @@ class TrajetsViewState extends State<TrajetsView> {
       "Date": "12H00",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
+      "Nombre de places": "2",
       "avatar": "Siege",
     },
     {
@@ -30,6 +32,7 @@ class TrajetsViewState extends State<TrajetsView> {
       "Date": "12H00",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
+      "Nombre de places": "1",
       "avatar": "Siege",
     }
   ];
@@ -115,7 +118,7 @@ class CustomSearchDelegate extends SearchDelegate {
         return ListTile(
           title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
           subtitle: Text(
-              'Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
+              'Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}    Places disponibles: ${trajet["Nombre de places"]}'),
           onTap: () {
             openTrajetDetails(context, trajet);
           },

@@ -80,8 +80,6 @@ class _RegisterSuiteViewState extends State<RegisterSuiteView> {
   final TextEditingController _dateOfBirthController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
