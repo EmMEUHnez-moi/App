@@ -18,7 +18,8 @@ class CreateTripBloc extends Bloc<CreateTripEvent, CreateTripState> {
   ) async {
     emit(CreateTripLoading());
     try {
-      await repository.createTrip(event.from_location, event.to_location, event.start_date, event.hour_of_departure, event.number_of_seats);
+      await repository.createTrip(event.fromLocation, event.toLocation,
+          event.startDate, event.hourOfDeparture, event.numberOfSeats);
       emit(CreateTripSuccess());
     } catch (e) {
       emit(CreateTripFailure(e.toString()));

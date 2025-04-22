@@ -15,7 +15,7 @@ class NewTrajetView extends StatefulWidget {
   const NewTrajetView({super.key});
 
   @override
-  _NewTrajetViewState createState() => _NewTrajetViewState();
+  State<NewTrajetView> createState() => _NewTrajetViewState();
 }
 
 class _NewTrajetViewState extends State<NewTrajetView> {
@@ -24,7 +24,6 @@ class _NewTrajetViewState extends State<NewTrajetView> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _horaireController = TextEditingController();
   final TextEditingController _placesdispoController = TextEditingController();
-  final TextEditingController _lieurdvController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 

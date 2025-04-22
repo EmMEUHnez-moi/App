@@ -1,3 +1,4 @@
+import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
 import 'package:flutter/material.dart';
 
 class TrajetfavView extends StatefulWidget {
@@ -14,6 +15,7 @@ class TrajetfavViewState extends State<TrajetfavView> {
       "Date": "18h05",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat N",
+      "Nombre de places": "4",
       "avatar": "volant",
     },
     {
@@ -21,6 +23,7 @@ class TrajetfavViewState extends State<TrajetfavView> {
       "Date": "12H00",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
+      "Nombre de places": "2",
       "avatar": "Siege",
     }
   ];
@@ -33,22 +36,17 @@ class TrajetfavViewState extends State<TrajetfavView> {
           itemCount: listeCovoit.length,
           itemBuilder: (context, index) {
             final listedescovoits = listeCovoit[index];
-            final avatar = listedescovoits['avatar'];
-            final conducteur = listedescovoits['Conducteur'];
-            final date = listedescovoits['Date'];
-            final lieudepart = listedescovoits['Lieu Départ'];
-            final lieuarrive = listedescovoits['Lieu arrivé'];
+            /*final actions = [
+              () => rechercherTrajet(listedescovoits),
+              () => ajoutOUsupprFavoris(listedescovoits),
+            ];*/
 
-            return Card(
-              child: ListTile(
-                leading: Image.asset("assets/images/$avatar.jpg"),
-                title: Text(
-                    'Trajet $lieudepart à $lieuarrive Conducteur : $conducteur',style: TextStyle(color: Colors.white)),
-                subtitle: Text('1 Place $lieudepart à $date',style: TextStyle(color: Colors.white)),
-                trailing: Icon(Icons.more_vert, color: Colors.white),
-                tileColor: Colors.deepPurple[300],
-              ),
-            );
+            return TrajetCard(
+              trajetDetails: listedescovoits, 
+              /*actionLabel1: "Rechercher",
+              actionLabel2: "Supprimer des favoris", 
+              actions: actions*/
+              );
           },
         ),
       ),

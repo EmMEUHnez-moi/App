@@ -10,7 +10,7 @@ class ConnexionView extends StatefulWidget {
   const ConnexionView({super.key});
 
   @override
-  _ConnexionViewState createState() => _ConnexionViewState();
+  State<ConnexionView> createState() => _ConnexionViewState();
 }
 
 class _ConnexionViewState extends State<ConnexionView> {

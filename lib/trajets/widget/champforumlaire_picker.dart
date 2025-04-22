@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ChampFormulaire extends StatelessWidget {
   final String label;
   final String texteduchamp;
   final bool cacheoupas;
   final TextEditingController? controller;
+  final List<TextInputFormatter>? inputFormatters;
 
   const ChampFormulaire(
       {super.key,
       required this.label,
       required this.texteduchamp,
       required this.cacheoupas,
-      this.controller});
+      this.controller,
+      this.inputFormatters,});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,8 @@ class ChampFormulaire extends StatelessWidget {
       ),
       TextFormField(
         obscureText: cacheoupas,
-        controller: controller, 
+        controller: controller,
+        inputFormatters: inputFormatters, 
         decoration: InputDecoration(
             labelText: texteduchamp, border: OutlineInputBorder(),
             labelStyle: TextStyle(color : Colors.deepPurple)),

@@ -15,5 +15,5 @@ class CreateTripSuccess extends CreateTripState {}
 
 class CreateTripFailure extends CreateTripState {
   final String error;
-  CreateTripFailure(this.error);
+  const CreateTripFailure(this.error);
 }

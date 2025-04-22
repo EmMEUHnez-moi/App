@@ -1,6 +1,6 @@
+import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
 
 class TrajetsView extends StatefulWidget {
   const TrajetsView({super.key});
@@ -16,6 +16,7 @@ class TrajetsViewState extends State<TrajetsView> {
       "Date": "18h05",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat N",
+      "Nombre de places": "4",
       "avatar": "volant",
     },
     {
@@ -23,6 +24,15 @@ class TrajetsViewState extends State<TrajetsView> {
       "Date": "12H00",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
+      "Nombre de places": "2",
+      "avatar": "Siege",
+    },
+    {
+      "Conducteur": "William Machecourt",
+      "Date": "12H00",
+      "Lieu Départ": "Ecole",
+      "Lieu arrivé": "MEUH Bat P",
+      "Nombre de places": "1",
       "avatar": "Siege",
     }
   ];
@@ -31,39 +41,34 @@ class TrajetsViewState extends State<TrajetsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mes Trajets'),
-        actions:[
-          IconButton(
-            onPressed: () {
-              showSearch(
-              context: context,
-              delegate: CustomSearchDelegate(listeCovoit),
-              );
-            },
-          icon: const Icon(Icons.search),
-          ),
-        ]
-      ),
+          title:
+              Text('Mes Trajets', style: TextStyle(color: Colors.deepPurple)),
+          actions: [
+            IconButton(
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: CustomSearchDelegate(listeCovoit),
+                );
+              },
+              icon: const Icon(Icons.search, color: Colors.deepPurple),
+            ),
+          ]),
       body: Center(
         child: ListView.builder(
           itemCount: listeCovoit.length,
           itemBuilder: (context, index) {
             final listedescovoits = listeCovoit[index];
-            final avatar = listedescovoits['avatar'];
-            final conducteur = listedescovoits['Conducteur'];
-            final date = listedescovoits['Date'];
-            final lieudepart = listedescovoits['Lieu Départ'];
-            final lieuarrive = listedescovoits['Lieu arrivé'];
+            /*final actions = [
+              () => annulerTrajet(listedescovoits),
+              () => ajoutOUsupprFavoris(listedescovoits),
+            ];*/
 
-            return Card(
-              child: ListTile(
-                leading: Image.asset("assets/images/$avatar.jpg"),
-                title: Text(
-                    'Trajet $lieudepart à $lieuarrive Conducteur : $conducteur',style: TextStyle(color: Colors.white)),
-                subtitle: Text('1 Place $lieudepart à $date',style: TextStyle(color: Colors.white)),
-                trailing: Icon(Icons.more_vert, color: Colors.white),
-                tileColor: Colors.deepPurple[300],
-              ),
+            return TrajetCard(
+              trajetDetails: listedescovoits,
+              /*actionLabel1: "Annuler",
+              actionLabel2: "Ajouter/Supprimer aux favoris", // condition ajout ou suppr des favoris
+              actions: actions*/
             );
           },
         ),
@@ -71,12 +76,6 @@ class TrajetsViewState extends State<TrajetsView> {
     );
   }
 }
-
-
-
-
-
-
 
 class CustomSearchDelegate extends SearchDelegate {
   final List<Map<String, String>> trajets;
@@ -108,7 +107,8 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List<Map<String, String>> matchQuery = trajets.where((trajet) {
-      return trajet.values.any((value) => value.toLowerCase().contains(query.toLowerCase()));
+      return trajet.values
+          .any((value) => value.toLowerCase().contains(query.toLowerCase()));
     }).toList();
 
     return ListView.builder(
@@ -117,7 +117,11 @@ class CustomSearchDelegate extends SearchDelegate {
         var trajet = matchQuery[index];
         return ListTile(
           title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
-          subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
+          subtitle: Text(
+              'Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}    Places disponibles: ${trajet["Nombre de places"]}'),
+          onTap: () {
+            openTrajetDetails(context, trajet);
+          },
         );
       },
     );

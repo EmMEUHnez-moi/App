@@ -1,11 +1,8 @@
+import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
 import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/new_trajet_view.dart';
 import 'package:emmeuhnez_moi_app/profil/view/profil_view.dart';
-
-
-
-
 
 class AccueilView extends StatefulWidget {
   const AccueilView({super.key});
@@ -21,6 +18,7 @@ class AccueilViewState extends State<AccueilView> {
       "Date": "18h05",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat N",
+      "Nombre de places": "4",
       "avatar": "volant",
     },
     {
@@ -28,6 +26,7 @@ class AccueilViewState extends State<AccueilView> {
       "Date": "12H00",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
+      "Nombre de places": "2",
       "avatar": "Siege",
     }
   ];
@@ -36,7 +35,7 @@ class AccueilViewState extends State<AccueilView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Accueil'),
+        title: const Text('Accueil',style: TextStyle(color: Colors.deepPurple)),
         actions: [
           IconButton(
             onPressed: () {
@@ -45,7 +44,7 @@ class AccueilViewState extends State<AccueilView> {
                 delegate: CustomSearchDelegate(listeCovoit),
               );
             },
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search, color: Colors.deepPurple),
           ),
           IconButton(
             onPressed: () {
@@ -73,32 +72,23 @@ class AccueilViewState extends State<AccueilView> {
           itemCount: listeCovoit.length,
           itemBuilder: (context, index) {
             final listedescovoits = listeCovoit[index];
-            final avatar = listedescovoits['avatar'];
-            final conducteur = listedescovoits['Conducteur'];
-            final date = listedescovoits['Date'];
-            final lieudepart = listedescovoits['Lieu Départ'];
-            final lieuarrive = listedescovoits['Lieu arrivé'];
+            /*final actions = [
+              () => reserverTrajet(listedescovoits),
+              () => ajoutOUsupprFavoris(listedescovoits),
+            ];*/
 
-            return Card(
-              child: ListTile(
-                leading: Image.asset("assets/images/$avatar.jpg"),
-                title: Text('Trajet $lieudepart → $lieuarrive\nConducteur : $conducteur'),
-                subtitle: Text('1 Place - Départ : $date'),
-                trailing: const Icon(Icons.more_vert),
-              ),
-            );
+            return TrajetCard(
+              trajetDetails: listedescovoits, 
+              /*actionLabel1: "Réserver",
+              actionLabel2: "Ajouter/Supprimer aux favoris", // condition ajout ou suppr des favoris
+              actions: actions*/
+              );
           },
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
 
 class CustomSearchDelegate extends SearchDelegate {
   final List<Map<String, String>> trajets;
@@ -139,7 +129,7 @@ class CustomSearchDelegate extends SearchDelegate {
         var trajet = matchQuery[index];
         return ListTile(
           title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
-          subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
+          subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}    Places disponibles: ${trajet["Nombre de places"]}'),
         );
       },
     );
