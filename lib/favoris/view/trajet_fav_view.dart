@@ -15,6 +15,7 @@ class TrajetfavViewState extends State<TrajetfavView> {
       "Date": "18h05",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat N",
+      "Nombre de places": "4",
       "avatar": "volant",
     },
     {
@@ -22,6 +23,7 @@ class TrajetfavViewState extends State<TrajetfavView> {
       "Date": "12H00",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
+      "Nombre de places": "2",
       "avatar": "Siege",
     }
   ];

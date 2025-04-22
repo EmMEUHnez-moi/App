@@ -18,7 +18,6 @@ class _NewTrajetViewState extends State<NewTrajetView> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _horaireController = TextEditingController();
   final TextEditingController _placesdispoController = TextEditingController();
-  final TextEditingController _lieurdvController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -67,11 +66,6 @@ class _NewTrajetViewState extends State<NewTrajetView> {
                     texteduchamp: '',
                     cacheoupas: false,
                     controller: _placesdispoController),
-                ChampFormulaire(
-                    label: "Lieu de RDV",
-                    texteduchamp: '',
-                    cacheoupas: false,
-                    controller: _lieurdvController),
                 Center(
                   child: PriveouPublic(),
                 ),

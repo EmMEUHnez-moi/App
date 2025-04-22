@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/new_trajet_view.dart';
 import 'package:emmeuhnez_moi_app/profil/view/profil_view.dart';
-import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
 
 class AccueilView extends StatefulWidget {
   const AccueilView({super.key});
@@ -19,6 +18,7 @@ class AccueilViewState extends State<AccueilView> {
       "Date": "18h05",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat N",
+      "Nombre de places": "4",
       "avatar": "volant",
     },
     {
@@ -26,6 +26,7 @@ class AccueilViewState extends State<AccueilView> {
       "Date": "12H00",
       "Lieu Départ": "Ecole",
       "Lieu arrivé": "MEUH Bat P",
+      "Nombre de places": "2",
       "avatar": "Siege",
     }
   ];
@@ -128,7 +129,7 @@ class CustomSearchDelegate extends SearchDelegate {
         var trajet = matchQuery[index];
         return ListTile(
           title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
-          subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
+          subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}    Places disponibles: ${trajet["Nombre de places"]}'),
         );
       },
     );
