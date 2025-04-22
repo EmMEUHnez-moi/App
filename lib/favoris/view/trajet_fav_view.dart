@@ -1,4 +1,3 @@
-import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
 import 'package:flutter/material.dart';
 
 class TrajetfavView extends StatefulWidget {
@@ -30,7 +29,7 @@ class TrajetfavViewState extends State<TrajetfavView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ListView.builder(
+          /*child: ListView.builder(
           itemCount: listeCovoit.length,
           itemBuilder: (context, index) {
             final listedescovoits = listeCovoit[index];
@@ -46,8 +45,8 @@ class TrajetfavViewState extends State<TrajetfavView> {
               actions: actions*/
               );
           },
-        ),
-      ),
+        ),*/
+          ),
     );
   }
 }

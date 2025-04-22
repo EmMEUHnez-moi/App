@@ -1,7 +1,6 @@
-import 'package:emmeuhnez_moi_app/Accueil/widget/button_accueil.dart';
 import 'package:emmeuhnez_moi_app/trajets/widget/champforumlaire_picker.dart';
 import 'package:emmeuhnez_moi_app/profil/view/connexion_view.dart';
-import 'package:emmeuhnez_moi_app/trajets/widget/dropdownlist.dart';  
+import 'package:emmeuhnez_moi_app/trajets/widget/dropdownlist.dart';
 import 'package:flutter/material.dart';
 
 class ProfilView extends StatefulWidget {
@@ -146,7 +145,7 @@ class ParametrePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ModifInfo()),
-                  );  // Action for first button
+                  ); // Action for first button
                 },
                 child: Text(
                     style: TextStyle(fontSize: 18),
@@ -228,7 +227,7 @@ class ModifInfo extends StatefulWidget {
   const ModifInfo({super.key});
 
   @override
-  _ModifInfoState createState() => _ModifInfoState();
+  State<ModifInfo> createState() => _ModifInfoState();
 }
 
 class _ModifInfoState extends State<ModifInfo> {

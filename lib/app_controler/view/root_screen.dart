@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:emmeuhnez_moi_app/app_controler/Widget/menu_items.dart';
 import 'package:emmeuhnez_moi_app/app_controler/cubit/app_controller_cubit.dart';
-import 'package:emmeuhnez_moi_app/app_controler/cubit_Orientation/orientation_cubit.dart';
 import 'package:emmeuhnez_moi_app/accueil/view/accueil_view.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/trajets_view.dart';
 import 'package:emmeuhnez_moi_app/favoris/view/favoris_view.dart';

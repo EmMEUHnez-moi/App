@@ -5,14 +5,15 @@ class ListeDeroulante extends StatefulWidget {
   final List<String> options;
   final Function(String?) onChanged;
 
-  ListeDeroulante({
+  const ListeDeroulante({
+    super.key,
     required this.label,
     required this.options,
     required this.onChanged,
   });
 
   @override
-  _ListeDeroulanteState createState() => _ListeDeroulanteState();
+  State<ListeDeroulante> createState() => _ListeDeroulanteState();
 }
 
 class _ListeDeroulanteState extends State<ListeDeroulante> {
@@ -27,7 +28,8 @@ class _ListeDeroulanteState extends State<ListeDeroulante> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start, // Aligne les éléments à gauche
+      crossAxisAlignment:
+          CrossAxisAlignment.start, // Aligne les éléments à gauche
       children: [
         // Titre au-dessus de la liste déroulante
         Text(
@@ -41,7 +43,9 @@ class _ListeDeroulanteState extends State<ListeDeroulante> {
           width: double.infinity, // Prend toute la largeur disponible
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3), // Coins arrondis
-            border: Border.all(color: const Color.fromARGB(255, 135, 134, 134)), // Bordure grise
+            border: Border.all(
+                color:
+                    const Color.fromARGB(255, 135, 134, 134)), // Bordure grise
             color: Colors.white, // Fond blanc
           ),
           child: DropdownButton<String>(
@@ -57,13 +61,15 @@ class _ListeDeroulanteState extends State<ListeDeroulante> {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15), // Ajoute un alinéa à gauche 
+                  padding: const EdgeInsets.only(
+                      left: 15), // Ajoute un alinéa à gauche
                   child: Text(value),
                 ),
               );
             }).toList(),
             style: TextStyle(color: Colors.black), // Couleur du texte
-            underline: Container(), // Supprime la ligne sous la liste déroulante
+            underline:
+                Container(), // Supprime la ligne sous la liste déroulante
           ),
         ),
       ],

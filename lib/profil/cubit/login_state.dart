@@ -12,8 +12,7 @@ class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final User user;
-  const LoginSuccess(this.user);
+  const LoginSuccess();
 }
 
 class LoginFailure extends LoginState {

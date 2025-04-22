@@ -1,9 +1,10 @@
+import 'package:emmeuhnez_moi_app/trajets/cubit/create_trip_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:emmeuhnez_moi_app/accueil/view/accueil_view.dart';
 import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
 import 'package:emmeuhnez_moi_app/trajets/widget/champforumlaire_picker.dart';
 import 'package:emmeuhnez_moi_app/trajets/widget/dropdownbutton_priveoupublic.dart';
 import 'package:emmeuhnez_moi_app/favoris/view/new_trajet_favoris_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewTrajetView extends StatefulWidget {
   const NewTrajetView({super.key});
@@ -19,8 +20,6 @@ class _NewTrajetViewState extends State<NewTrajetView> {
   final TextEditingController _horaireController = TextEditingController();
   final TextEditingController _placesdispoController = TextEditingController();
   final TextEditingController _lieurdvController = TextEditingController();
-
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -75,18 +74,45 @@ class _NewTrajetViewState extends State<NewTrajetView> {
                 Center(
                   child: PriveouPublic(),
                 ),
-                Center(
-                  child: CustomButton(
-                    label: 'Ajouter',
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AccueilView()));
-                      }
-                    },
-                  ),
+                BlocConsumer<CreateTripBloc, CreateTripState>(
+                  listener: (context, state) {
+                    if (state is CreateTripSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Trajet créé avec succès"),
+                        ),
+                      );
+                      Navigator.pop(context);
+                    } else if (state is CreateTripFailure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Erreur : ${state.error}"),
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return CustomButton(
+                      label: "Créer le trajet",
+                      onPressed: () {
+                        if (_departController.text.isNotEmpty ||
+                            _destinationController.text.isNotEmpty ||
+                            _dateController.text.isNotEmpty ||
+                            _horaireController.text.isNotEmpty ||
+                            _placesdispoController.text.isNotEmpty) {
+                          BlocProvider.of<CreateTripBloc>(context).add(
+                            CreateTripSubmitted(
+                                fromLocation: _departController.text,
+                                toLocation: _destinationController.text,
+                                startDate: _dateController.text,
+                                hourOfDeparture: _horaireController.text,
+                                numberOfSeats:
+                                    int.parse(_placesdispoController.text)),
+                          );
+                        }
+                      },
+                    );
+                  },
                 )
               ],
             )));

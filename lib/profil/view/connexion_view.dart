@@ -2,7 +2,6 @@ import 'package:emmeuhnez_moi_app/profil/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
 import 'package:emmeuhnez_moi_app/trajets/widget/champforumlaire_picker.dart';
-import 'package:emmeuhnez_moi_app/main.dart';
 import 'package:emmeuhnez_moi_app/profil/view/register_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,25 +65,18 @@ class _ConnexionViewState extends State<ConnexionView> {
                     if (state is LoginLoading) {
                       return CircularProgressIndicator();
                     }
-                    return ElevatedButton(
-                        onPressed: () {
-                          final email = _emailController.text;
-                          final password = _passwordController.text;
+                    return Center(
+                        child: CustomButton(
+                      label: 'Connexion',
+                      onPressed: () {
+                        final email = _emailController.text;
+                        final password = _passwordController.text;
+                        if (_formKey.currentState!.validate()) {
                           context.read<LoginBloc>().add(
                               LoginSubmitted(email: email, password: password));
-                        },
-                        child: Center(
-                            child: CustomButton(
-                          label: 'Connexion',
-                          onPressed: () {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyHomePage()));
-                            }
-                          },
-                        )));
+                        }
+                      },
+                    ));
                   }),
                 ]))));
   }

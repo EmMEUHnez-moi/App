@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:emmeuhnez_moi_app/profil/model/user.dart';
 import 'package:emmeuhnez_moi_app/profil/repository/login_repository.dart';
 
 part 'login_state.dart';
@@ -19,8 +18,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(LoginLoading());
     try {
-      final user = await repository.login(event.email, event.password);
-      emit(LoginSuccess(user));
+      await repository.login(event.email, event.password);
+      emit(LoginSuccess());
     } catch (e) {
       emit(LoginFailure(e.toString()));
     }

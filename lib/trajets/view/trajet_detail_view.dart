@@ -1,7 +1,10 @@
+import 'package:emmeuhnez_moi_app/trajets/cubit/book_trip_cubit.dart';
+import 'package:emmeuhnez_moi_app/trajets/model/trip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrajetDetailsScreen extends StatelessWidget {
-  final Map<String, String> trajet;
+  final Trip trajet;
 
   const TrajetDetailsScreen({super.key, required this.trajet});
 
@@ -20,34 +23,49 @@ class TrajetDetailsScreen extends StatelessWidget {
             Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage("assets/images/${trajet["avatar"]}.jpg"),
+                backgroundImage: AssetImage("assets/images/profile.jpg"),
               ),
             ),
             const SizedBox(height: 20),
 
             // Informations principales
             Text(
-              '${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}',
+              '${trajet.fromLocation} → ${trajet.toLocation}',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            Text('Conducteur: ${trajet["Conducteur"]}', style: TextStyle(fontSize: 18)),
-            Text('Date et Heure: ${trajet["Date"]}', style: TextStyle(fontSize: 16)),
+            Text('Conducteur: ${trajet.driver.name} ${trajet.driver.surname}',
+                style: TextStyle(fontSize: 18)),
+            Text(
+                'Date et Heure: ${trajet.startDate.day.toString().padLeft(2, '0')}/${trajet.startDate.month.toString().padLeft(2, '0')}/${trajet.startDate.year} ${trajet.hourOfDeparture.hour.toString().padLeft(2, '0')}:${trajet.hourOfDeparture.minute.toString().padLeft(2, '0')}',
+                style: TextStyle(fontSize: 16)),
             const SizedBox(height: 20),
 
             // Boutons d'action
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Ajouter l'action pour réserver
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Réservation en cours...")),
+                BlocConsumer<BookTripBloc, BookTripState>(
+                  listener: (context, state) {
+                    if (state is BookTripSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Trajet réservé avec succès!")),
+                      );
+                      Navigator.pop(context);
+                    }
+                  },
+                  builder: (context, state) {
+                    return ElevatedButton.icon(
+                      onPressed: () async {
+                        // Ajouter l'action pour réserver
+                        context.read<BookTripBloc>().add(
+                              BookTripSubmitted(tripId: trajet.id),
+                            );
+                      },
+                      icon: Icon(Icons.check),
+                      label: Text("Réserver"),
                     );
                   },
-                  icon: Icon(Icons.event_seat),
-                  label: Text("Réserver"),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
@@ -77,7 +95,7 @@ class TrajetDetailsScreen extends StatelessWidget {
   }
 }
 
-  void openTrajetDetails(BuildContext context, Map<String, String> trajet) {
+void openTrajetDetails(BuildContext context, Trip trajet) {
   Navigator.push(
     context,
     MaterialPageRoute(

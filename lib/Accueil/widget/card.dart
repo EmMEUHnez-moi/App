@@ -1,29 +1,30 @@
+import 'package:emmeuhnez_moi_app/trajets/model/trip.dart';
 import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
 
 // Fonctions actions de l'icon more dans Card
-void reserverTrajet(Map<String, String> Details) {
+void reserverTrajet(Trip details) {
   // mettre le trajet dans mes trajets + occupe une place dans la voiture (liste avec les noms des passagers)
 }
 
-void rechercherTrajet(Map<String, String> Details) {
+void rechercherTrajet(Trip details) {
   // recherche le trajet dans l'accueil (trajets récents)
 }
 
-void ajoutOUsupprFavoris(Map<String, String> Details) {
+void ajoutOUsupprFavoris(Trip details) {
   // si trajet ou utilisateur déjà dans favoris alors supprimer des favoris sinon ajouter aux favoris
 }
 
-void annulerTrajet(Map<String, String> Details) {
+void annulerTrajet(Trip details) {
   // supprimer le trajet de mes trajets + libère une place dans la voiture (suppression du nom dans la liste des passagers)
 }
 
-void infoprofil(Map<String, String> Details) {
+void infoprofil(Trip details) {
   // donne les informations de l'utilisateur
 }
 
 class TrajetCard extends StatelessWidget {
-  final Map<String, String> trajetDetails;
+  final Trip trajetDetails;
 /*  final List<Function> actions;
   final String actionLabel1; 
   final String actionLabel2;*/
@@ -38,26 +39,29 @@ class TrajetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final avatar = trajetDetails['avatar']!;
-    final conducteur = trajetDetails['Conducteur']!;
-    final date = trajetDetails['Date']!;
-    final lieudepart = trajetDetails['Lieu Départ']!;
-    final lieuarrive = trajetDetails['Lieu arrivé']!;
+    final fromLocation = trajetDetails.fromLocation;
+    final toLocation = trajetDetails.toLocation;
+    final hourOfDeparture =
+        "${trajetDetails.hourOfDeparture.hour.toString().padLeft(2, '0')}:${trajetDetails.hourOfDeparture.minute.toString().padLeft(2, '0')}";
+    final conducteur =
+        "${trajetDetails.driver.name} ${trajetDetails.driver.surname}";
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Colors.deepPurple[300],
       child: ListTile(
-        leading: Image.asset("assets/images/$avatar.jpg"),
+        leading: Image.asset("assets/images/profile.jpg"),
         title: Text(
-          'Trajet $lieudepart → $lieuarrive\nConducteur : $conducteur',
+          'Trajet $fromLocation → $toLocation\nConducteur : $conducteur',
           style: TextStyle(color: Colors.white),
         ),
-        subtitle: Text('1 Place - Départ : $date',
+        subtitle: Text('1 Place - Départ : $hourOfDeparture',
             style: TextStyle(color: Colors.white)),
-        trailing:
-            // mettre conditions si dans favoris coeur plein sinon coeur vide
-            const Icon(Icons.favorite_border, color: Colors.white),
+        trailing: IconButton(
+            onPressed: () {
+              ajoutOUsupprFavoris(trajetDetails);
+            },
+            icon: Icon(Icons.favorite_border, color: Colors.white)),
         onTap: () {
           openTrajetDetails(context, trajetDetails);
         },
