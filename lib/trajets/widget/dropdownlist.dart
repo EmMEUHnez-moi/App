@@ -57,12 +57,12 @@ class _ListeDeroulanteState extends State<ListeDeroulante> {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15), // Ajoute un alinéa à gauche 
+                  padding: const EdgeInsets.only(left: 12), // Ajoute un alinéa à gauche 
                   child: Text(value),
                 ),
               );
             }).toList(),
-            style: TextStyle(color: Colors.black), // Couleur du texte
+            style: TextStyle(color: Colors.black, fontSize:16), // Couleur du texte
             underline: Container(), // Supprime la ligne sous la liste déroulante
           ),
         ),
