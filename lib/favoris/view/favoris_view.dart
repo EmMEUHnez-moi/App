@@ -10,12 +10,12 @@ class FavorisView extends StatefulWidget {
 }
 
 class FavorisViewState extends State<FavorisView>
-  with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
     tabController.addListener(() {
       setState(() {});
     });
@@ -28,14 +28,17 @@ class FavorisViewState extends State<FavorisView>
         appBar: AppBar(
           title:
               Text("Mes favoris", style: TextStyle(color: Colors.deepPurple)),
-          bottom: TabBar(controller: tabController, labelColor: Colors.deepPurple, tabs : [
-            Tab(
-              text: "Utilisateurs",
-            ),
-            Tab(
-              text: "Trajets",
-            )
-          ]),
+          bottom: TabBar(
+              controller: tabController,
+              labelColor: Colors.deepPurple,
+              tabs: [
+                Tab(
+                  text: "Utilisateurs",
+                ),
+                Tab(
+                  text: "Trajets",
+                )
+              ]),
         ),
         body: TabBarView(
           controller: tabController,

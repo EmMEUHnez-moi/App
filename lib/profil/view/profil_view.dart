@@ -260,7 +260,7 @@ class ModifInfo extends StatefulWidget {
   const ModifInfo({super.key, required this.userInfo});
 
   @override
-  _ModifInfoState createState() => _ModifInfoState();
+  State<ModifInfo> createState() => _ModifInfoState();
 }
 
 class _ModifInfoState extends State<ModifInfo> {

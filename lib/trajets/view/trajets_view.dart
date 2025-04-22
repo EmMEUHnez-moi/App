@@ -1,6 +1,6 @@
-import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
+import 'package:emmeuhnez_moi_app/trajets/cubit/search_trip_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrajetsView extends StatefulWidget {
   const TrajetsView({super.key});
@@ -10,69 +10,50 @@ class TrajetsView extends StatefulWidget {
 }
 
 class TrajetsViewState extends State<TrajetsView> {
-  final listeCovoit = [
-    {
-      "Conducteur": "Coumba Niakate",
-      "Date": "18h05",
-      "Lieu Départ": "Ecole",
-      "Lieu arrivé": "MEUH Bat N",
-      "Nombre de places": "4",
-      "avatar": "volant",
-    },
-    {
-      "Conducteur": "Adrien Marly",
-      "Date": "12H00",
-      "Lieu Départ": "Ecole",
-      "Lieu arrivé": "MEUH Bat P",
-      "Nombre de places": "2",
-      "avatar": "Siege",
-    },
-    {
-      "Conducteur": "William Machecourt",
-      "Date": "12H00",
-      "Lieu Départ": "Ecole",
-      "Lieu arrivé": "MEUH Bat P",
-      "Nombre de places": "1",
-      "avatar": "Siege",
-    }
-  ];
 
   @override
   Widget build(BuildContext context) {
+    context.read<SearchBloc>().add(SearchMineTripSubmitted());
     return Scaffold(
       appBar: AppBar(
-          title:
-              Text('Mes Trajets', style: TextStyle(color: Colors.deepPurple)),
-          actions: [
-            IconButton(
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: CustomSearchDelegate(listeCovoit),
+        title: Text('Mes Trajets', style: TextStyle(color: Colors.deepPurple)),
+      ),
+      body: Center(
+          child: BlocConsumer<SearchBloc, SearchState>(
+        listener: (context, state) {
+          if (state is SearchMineTripNoResults) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Aucun résultat trouvé")));
+          }
+        },
+        builder: (context, state) {
+          if (state is SearchMineTripSuccess) {
+            return ListView.builder(
+              itemCount: state.results.length,
+              itemBuilder: (context, index) {
+                final trip = state.results[index];
+                return ListTile(
+                  title: Text('${trip.fromLocation} → ${trip.toLocation}'),
+                  subtitle: Text(
+                      'Conducteur: ${trip.driver.name} → ${trip.driver.surname}- Départ: ${trip.startDate.day}/${trip.startDate.month}/${trip.startDate.year} ${trip.hourOfDeparture.hour.toString().padLeft(2, '0')}:${trip.hourOfDeparture.minute.toString().padLeft(2, '0')}'),
+                  onTap: () {
+                    //openTrajetDetails(context, trip);
+                  },
                 );
               },
-              icon: const Icon(Icons.search, color: Colors.deepPurple),
-            ),
-          ]),
-      body: Center(
-        child: ListView.builder(
-          itemCount: listeCovoit.length,
-          itemBuilder: (context, index) {
-            final listedescovoits = listeCovoit[index];
-            /*final actions = [
-              () => annulerTrajet(listedescovoits),
-              () => ajoutOUsupprFavoris(listedescovoits),
-            ];*/
-
-            return TrajetCard(
-              trajetDetails: listedescovoits,
-              /*actionLabel1: "Annuler",
-              actionLabel2: "Ajouter/Supprimer aux favoris", // condition ajout ou suppr des favoris
-              actions: actions*/
             );
-          },
-        ),
-      ),
+          } else if (state is SearchMineTripLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is SearchMineTripNoResults) {
+            return const Center(child: Text("Aucun résultat trouvé"));
+          } else if (state is SearchMineTripFailure) {
+            return Center(child: Text("Erreur de connexion : ${state.error}"));
+          } else {
+            return const Center(
+                child: Text("Commencer par rechercher un trajet"));
+          }
+        },
+      )),
     );
   }
 }
@@ -120,7 +101,7 @@ class CustomSearchDelegate extends SearchDelegate {
           subtitle: Text(
               'Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}    Places disponibles: ${trajet["Nombre de places"]}'),
           onTap: () {
-            openTrajetDetails(context, trajet);
+            //openTrajetDetails(context, trajet);
           },
         );
       },

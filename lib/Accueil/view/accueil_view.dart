@@ -1,8 +1,11 @@
+import 'package:emmeuhnez_moi_app/Accueil/view/search_view.dart';
 import 'package:emmeuhnez_moi_app/Accueil/widget/card.dart';
+import 'package:emmeuhnez_moi_app/trajets/cubit/search_trip_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/accueil/widget/button_accueil.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/new_trajet_view.dart';
 import 'package:emmeuhnez_moi_app/profil/view/profil_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccueilView extends StatefulWidget {
   const AccueilView({super.key});
@@ -12,81 +15,69 @@ class AccueilView extends StatefulWidget {
 }
 
 class AccueilViewState extends State<AccueilView> {
-  final listeCovoit = [
-    {
-      "Conducteur": "Coumba Niakate",
-      "Date": "18h05",
-      "Lieu Départ": "Ecole",
-      "Lieu arrivé": "MEUH Bat N",
-      "Nombre de places": "4",
-      "avatar": "volant",
-    },
-    {
-      "Conducteur": "Adrien Marly",
-      "Date": "12H00",
-      "Lieu Départ": "Ecole",
-      "Lieu arrivé": "MEUH Bat P",
-      "Nombre de places": "2",
-      "avatar": "Siege",
-    }
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Accueil',style: TextStyle(color: Colors.deepPurple)),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: CustomSearchDelegate(listeCovoit),
-              );
-            },
-            icon: const Icon(Icons.search, color: Colors.deepPurple),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilView()),
-              );
-            },
-            icon: const Icon(Icons.person, color: Colors.deepPurple),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: CustomButton(
-        label: "Ajouter un trajet",
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NewTrajetView()),
-          );
-        },
-      ),
-      body: Center(
-        child: ListView.builder(
-          itemCount: listeCovoit.length,
-          itemBuilder: (context, index) {
-            final listedescovoits = listeCovoit[index];
-            /*final actions = [
-              () => reserverTrajet(listedescovoits),
-              () => ajoutOUsupprFavoris(listedescovoits),
-            ];*/
-
-            return TrajetCard(
-              trajetDetails: listedescovoits, 
-              /*actionLabel1: "Réserver",
-              actionLabel2: "Ajouter/Supprimer aux favoris", // condition ajout ou suppr des favoris
-              actions: actions*/
-              );
+        appBar: AppBar(
+          title:
+              const Text('Accueil', style: TextStyle(color: Colors.deepPurple)),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchView(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.search, color: Colors.deepPurple),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilView()),
+                );
+              },
+              icon: const Icon(Icons.person, color: Colors.deepPurple),
+            ),
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: CustomButton(
+          label: "Ajouter un trajet",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewTrajetView()),
+            );
           },
         ),
-      ),
-    );
+        body: Center(
+            // from result of search create listview
+            child: BlocBuilder<SearchBloc, SearchState>(
+          builder: (context, state) {
+            if (state is SearchQuerySuccess) {
+              return ListView.builder(
+                itemCount: state.results.length,
+                itemBuilder: (context, index) {
+                  final trip = state.results[index];
+                  return TrajetCard(
+                    trajetDetails: trip,
+                  );
+                },
+              );
+            } else if (state is SearchQueryLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is SearchQueryNoResults) {
+              return const Center(child: Text("Aucun résultat trouvé"));
+            } else {
+              return const Center(
+                  child: Text("Commencer par rechercher un trajet"));
+            }
+          },
+        )));
   }
 }
 
@@ -120,7 +111,8 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List<Map<String, String>> matchQuery = trajets.where((trajet) {
-      return trajet.values.any((value) => value.toLowerCase().contains(query.toLowerCase()));
+      return trajet.values
+          .any((value) => value.toLowerCase().contains(query.toLowerCase()));
     }).toList();
 
     return ListView.builder(
@@ -129,7 +121,8 @@ class CustomSearchDelegate extends SearchDelegate {
         var trajet = matchQuery[index];
         return ListTile(
           title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
-          subtitle: Text('Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}    Places disponibles: ${trajet["Nombre de places"]}'),
+          subtitle: Text(
+              'Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
         );
       },
     );

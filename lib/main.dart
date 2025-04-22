@@ -1,3 +1,8 @@
+import 'package:emmeuhnez_moi_app/core/storage/secure_storage.dart';
+import 'package:emmeuhnez_moi_app/trajets/cubit/book_trip_cubit.dart';
+import 'package:emmeuhnez_moi_app/trajets/cubit/create_trip_cubit.dart';
+import 'package:emmeuhnez_moi_app/trajets/cubit/search_trip_cubit.dart';
+import 'package:emmeuhnez_moi_app/trajets/repository/trajets_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:emmeuhnez_moi_app/profil/cubit/login_cubit.dart';
@@ -23,6 +28,7 @@ class AppCovoit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SecureStorage.clearTokens();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -33,6 +39,15 @@ class AppCovoit extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => RegisterBloc(RegisterRepository()),
+        ),
+        BlocProvider(
+          create: (context) => CreateTripBloc(TrajetsRepository()),
+        ),
+        BlocProvider(
+          create: (context) => SearchBloc(TrajetsRepository()),
+        ),
+        BlocProvider(
+          create: (context) => BookTripBloc(TrajetsRepository()),
         ),
         BlocProvider(create: (context) => OrientationCubit()),
       ],
@@ -53,8 +68,7 @@ class AppCovoit extends StatelessWidget {
           ),
           themeMode: ThemeMode.system,
           debugShowCheckedModeBanner: false,
-          home:
-              RootScreen() /*BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+          home: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
             if (state is LoginSuccess) {
               return RootScreen();
             } else if (state is LoginFailure) {
@@ -62,8 +76,7 @@ class AppCovoit extends StatelessWidget {
             } else {
               return FirstPage();
             }
-          })*/
-          ),
+          })),
     );
   }
 }
