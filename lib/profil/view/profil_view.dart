@@ -2,6 +2,8 @@ import 'package:emmeuhnez_moi_app/trajets/widget/champforumlaire_picker.dart';
 import 'package:emmeuhnez_moi_app/profil/view/connexion_view.dart';
 import 'package:emmeuhnez_moi_app/trajets/widget/dropdownlist.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:emmeuhnez_moi_app/trajets/widget/numero_telephone.dart';
 
 class ProfilView extends StatefulWidget {
   const ProfilView({super.key});
@@ -14,6 +16,14 @@ class ProfilViewState extends State<ProfilView>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
 
+  final ValueNotifier<Map<String, String>> userInfo = ValueNotifier({
+    'email': 'exemple@email.com',
+    'phone': '06 00 00 00 00',
+    'etat': 'Conducteur',
+    'adresse': 'Adresse',
+    'vehicule': 'modèle',
+  });
+
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
@@ -21,6 +31,13 @@ class ProfilViewState extends State<ProfilView>
       setState(() {});
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    userInfo.dispose();
+    super.dispose();
   }
 
   @override
@@ -44,8 +61,8 @@ class ProfilViewState extends State<ProfilView>
       body: TabBarView(
         controller: tabController,
         children: [
-          InformationPage(),
-          ParametrePage(),
+          InformationPage(userInfo: userInfo),
+          ParametrePage(userInfo: userInfo),
         ],
       ),
     );
@@ -53,7 +70,9 @@ class ProfilViewState extends State<ProfilView>
 }
 
 class InformationPage extends StatelessWidget {
-  const InformationPage({super.key});
+  final ValueNotifier<Map<String, String>> userInfo;
+
+  const InformationPage({super.key, required this.userInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -93,35 +112,46 @@ class InformationPage extends StatelessWidget {
             ),
             SizedBox(height: 20), //j'espace le texte des boutons
             Container(
-                width: 350,
-                height: 380,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.deepPurple,
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
+              width: 350,
+              height: 380,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.deepPurple,
+                  width: 3,
                 ),
-                child: ListView(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ValueListenableBuilder<Map<String, String>>(
+                valueListenable: userInfo,
+                builder: (context, value, child) {
+                  return ListView(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     children: [
                       ListTile(
                           leading: Icon(Icons.email),
-                          title: Text('Adresse email :')),
+                          title: Text('Adresse email : ${value['email']}')),
                       ListTile(
                           leading: Icon(Icons.phone),
-                          title: Text('Numéro de téléphone :')),
-                      ListTile(leading: Icon(Icons.man), title: Text('Etat :')),
+                          title: Text('Numéro de téléphone :\n${value['phone']}')),
+                      ListTile(leading: Icon(Icons.man), title: Text('Etat : ${value['etat']}')),
                       ListTile(
-                          leading: Icon(Icons.home), title: Text('Adresse :')),
-                      ListTile(
+                          leading: Icon(Icons.home), title: Text('Adresse : ${value['adresse']}')),
+                      if (value['etat'] == 'Conducteur' ||
+                          value['etat'] == 'Conducteur et passager') ...[
+                        ListTile(
                           leading: Icon(Icons.airport_shuttle_rounded),
-                          title: Text('Modèle du véhicule :')),
+                          title: Text('Modèle du véhicule : ${value['vehicule']}'),
+                        ),
+                      ],
                       ListTile(
                           leading: Icon(Icons.check_rounded),
                           title: Text('Nombre de trajets effectués :'))
-                    ]))
+                    ],
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -130,7 +160,9 @@ class InformationPage extends StatelessWidget {
 }
 
 class ParametrePage extends StatelessWidget {
-  const ParametrePage({super.key});
+  final ValueNotifier<Map<String, String>> userInfo;
+
+  const ParametrePage({super.key, required this.userInfo});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,7 +176,7 @@ class ParametrePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ModifInfo()),
+                    MaterialPageRoute(builder: (context) => ModifInfo(userInfo: userInfo,)),
                   ); // Action for first button
                 },
                 child: Text(
@@ -224,13 +256,30 @@ class ParametrePage extends StatelessWidget {
 }
 
 class ModifInfo extends StatefulWidget {
-  const ModifInfo({super.key});
+  final ValueNotifier<Map<String, String>> userInfo;
+  const ModifInfo({super.key, required this.userInfo});
 
   @override
   State<ModifInfo> createState() => _ModifInfoState();
 }
 
 class _ModifInfoState extends State<ModifInfo> {
+  String? _selectedValue;
+  bool _showVehiculeField = false;
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _adresseController = TextEditingController();
+  final TextEditingController _vehiculeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Pré-remplir les champs avec les valeurs actuelles
+    _phoneController.text = widget.userInfo.value['phone'] ?? '';
+    _adresseController.text = widget.userInfo.value['adresse'] ?? '';
+    _vehiculeController.text = widget.userInfo.value['vehicule'] ?? '';
+    _selectedValue = widget.userInfo.value['etat'];
+    _showVehiculeField = _selectedValue == 'Conducteur' || _selectedValue == 'Conducteur et passager';
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -246,30 +295,56 @@ class _ModifInfoState extends State<ModifInfo> {
                 label: "Numéro de téléphone",
                 texteduchamp: '',
                 cacheoupas: false,
-              ),
-              SizedBox(height: 20),
-              ListeDeroulante(
-                label: "Etat",
-                options: ['Conducteur', 'Passager', 'Conducteur et passager'],
-                onChanged: (String? newValue) {
-                  // Action for dropdownlist
-                },
+                controller: _phoneController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                  PhoneNumberFormatter(),
+                ],
               ),
               SizedBox(height: 20),
               ChampFormulaire(
                 label: "Adresse",
                 texteduchamp: '',
                 cacheoupas: false,
+                controller: _adresseController,
               ),
               SizedBox(height: 20),
-              ChampFormulaire(
-                label: "Modèle du véhicule",
-                texteduchamp: '',
-                cacheoupas: false,
+              ListeDeroulante(
+                label: "Etat",
+                options: ['Conducteur', 'Passager', 'Conducteur et passager'],
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedValue = newValue;
+                    _showVehiculeField = newValue == 'Conducteur' ||
+                        newValue == 'Conducteur et passager';
+                  });
+                  // Action for dropdownlist
+                },
               ),
+              if (_showVehiculeField) ...[
+                SizedBox(height: 20),
+                ChampFormulaire(
+                  label: "Modèle du véhicule",
+                  texteduchamp: '',
+                  cacheoupas: false,
+                  controller: _vehiculeController,
+                ),
+                
+              ], // Affiche le champ si l'état est conducteur
+
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
+                  widget.userInfo.value = {
+                    'email': widget.userInfo.value['email'] ?? '',
+                    'phone': _phoneController.text,
+                    'etat': _selectedValue ?? '',
+                    'adresse': _adresseController.text,
+                    'vehicule': _vehiculeController.text,
+                  };
+                  widget.userInfo.notifyListeners(); // Notifier les changements
+                  Navigator.pop(context);
                   // Action for button
                 },
                 child: Text('Valider'),

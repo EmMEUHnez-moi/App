@@ -43,6 +43,8 @@ dependencies:
   dio: ^5.8.0+1
   uuid: ^4.5.1
   bloc: ^9.0.0
+  bottom_picker: ^2.11.2
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

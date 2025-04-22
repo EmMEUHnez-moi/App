@@ -10,6 +10,7 @@ class TrajetsView extends StatefulWidget {
 }
 
 class TrajetsViewState extends State<TrajetsView> {
+
   @override
   Widget build(BuildContext context) {
     context.read<SearchBloc>().add(SearchMineTripSubmitted());
@@ -98,7 +99,7 @@ class CustomSearchDelegate extends SearchDelegate {
         return ListTile(
           title: Text('${trajet["Lieu Départ"]} → ${trajet["Lieu arrivé"]}'),
           subtitle: Text(
-              'Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}'),
+              'Conducteur: ${trajet["Conducteur"]} - Départ: ${trajet["Date"]}    Places disponibles: ${trajet["Nombre de places"]}'),
           onTap: () {
             //openTrajetDetails(context, trajet);
           },

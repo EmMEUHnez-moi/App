@@ -1,6 +1,7 @@
 import 'package:emmeuhnez_moi_app/trajets/model/trip.dart';
 import 'package:flutter/material.dart';
 import 'package:emmeuhnez_moi_app/trajets/view/trajet_detail_view.dart';
+import 'package:flutter/material.dart';
 
 // Fonctions actions de l'icon more dans Card
 void reserverTrajet(Trip details) {
@@ -29,7 +30,7 @@ class TrajetCard extends StatelessWidget {
   final String actionLabel1; 
   final String actionLabel2;*/
 
-  const TrajetCard({
+  TrajetCard({
     super.key,
     required this.trajetDetails,
     /*required this.actions, 
@@ -55,13 +56,34 @@ class TrajetCard extends StatelessWidget {
           'Trajet $fromLocation → $toLocation\nConducteur : $conducteur',
           style: TextStyle(color: Colors.white),
         ),
-        subtitle: Text('1 Place - Départ : $hourOfDeparture',
+        subtitle: Text('$nbplaces Place - Départ : $hourOfDeparture',
             style: TextStyle(color: Colors.white)),
-        trailing: IconButton(
-            onPressed: () {
-              ajoutOUsupprFavoris(trajetDetails);
-            },
-            icon: Icon(Icons.favorite_border, color: Colors.white)),
+        trailing:
+            // mettre conditions si dans favoris coeur plein sinon coeur vide
+            //const Icon(Icons.more, color: Colors.white),
+            ValueListenableBuilder<bool>(
+          valueListenable: isFavorited,  // On écoute les changements de la valeur
+          builder: (context, isFavorited, child) {
+            return IconButton(
+              icon: Icon(
+                isFavorited ? Icons.favorite : Icons.favorite_border,
+                color: Colors.white,
+                size: 30,
+              ),
+              onPressed: () {
+                ajoutOUsupprFavoris(trajetDetails);
+                // Inverser l'état du favori
+                isFavorited = !isFavorited;
+                // Afficher un message via SnackBar
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(isFavorited ? 'Ajouté aux favoris !' : 'Retiré des favoris !')),
+                );
+                // Actualiser la valeur dans ValueNotifier
+                this.isFavorited.value = isFavorited;
+              },
+            );
+          },
+        ),
         onTap: () {
           openTrajetDetails(context, trajetDetails);
         },
