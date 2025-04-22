@@ -46,6 +46,8 @@ class TrajetCard extends StatelessWidget {
         "${trajetDetails.hourOfDeparture.hour.toString().padLeft(2, '0')}:${trajetDetails.hourOfDeparture.minute.toString().padLeft(2, '0')}";
     final conducteur =
         "${trajetDetails.driver.name} ${trajetDetails.driver.surname}";
+    final numberOfSeats = trajetDetails.numberOfSeats;
+    final ValueNotifier<bool> isFavorited = ValueNotifier(false);
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -56,13 +58,14 @@ class TrajetCard extends StatelessWidget {
           'Trajet $fromLocation → $toLocation\nConducteur : $conducteur',
           style: TextStyle(color: Colors.white),
         ),
-        subtitle: Text('$nbplaces Place - Départ : $hourOfDeparture',
+        subtitle: Text('$numberOfSeats Place - Départ : $hourOfDeparture',
             style: TextStyle(color: Colors.white)),
         trailing:
             // mettre conditions si dans favoris coeur plein sinon coeur vide
             //const Icon(Icons.more, color: Colors.white),
             ValueListenableBuilder<bool>(
-          valueListenable: isFavorited,  // On écoute les changements de la valeur
+          valueListenable:
+              isFavorited, // On écoute les changements de la valeur
           builder: (context, isFavorited, child) {
             return IconButton(
               icon: Icon(
@@ -76,10 +79,13 @@ class TrajetCard extends StatelessWidget {
                 isFavorited = !isFavorited;
                 // Afficher un message via SnackBar
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(isFavorited ? 'Ajouté aux favoris !' : 'Retiré des favoris !')),
+                  SnackBar(
+                      content: Text(isFavorited
+                          ? 'Ajouté aux favoris !'
+                          : 'Retiré des favoris !')),
                 );
                 // Actualiser la valeur dans ValueNotifier
-                this.isFavorited.value = isFavorited;
+                isFavorited = isFavorited;
               },
             );
           },

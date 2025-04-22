@@ -3,8 +3,7 @@ import 'package:emmeuhnez_moi_app/trajets/model/trip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-class TrajetDetailsScreen extends StatelessWidget {
+class TrajetDetailsScreen extends StatefulWidget {
   final Trip trajet;
 
   const TrajetDetailsScreen({super.key, required this.trajet});
@@ -15,24 +14,27 @@ class TrajetDetailsScreen extends StatelessWidget {
 
 class _TrajetDetailsScreenState extends State<TrajetDetailsScreen> {
   late int placesDisponibles;
-  bool isReserved = false;  // Variable pour savoir si la place a été réservée ou non
+  bool isReserved =
+      false; // Variable pour savoir si la place a été réservée ou non
 
   @override
   void initState() {
     super.initState();
     // Initialiser placesDisponibles à partir de la donnée "Nombre de places" dans le trajet
-    placesDisponibles = int.tryParse(widget.trajet["Nombre de places"] ?? '0') ?? 0;
+    placesDisponibles = widget.trajet.numberOfSeats;
   }
 
   // Fonction pour réserver une place
   void reserverPlace() {
     if (placesDisponibles > 0) {
       setState(() {
-        placesDisponibles--;  // Décrémenter le nombre de places disponibles
-        isReserved = true;  // Marquer la place comme réservée
+        placesDisponibles--; // Décrémenter le nombre de places disponibles
+        isReserved = true; // Marquer la place comme réservée
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Réservation réussie! Places restantes: $placesDisponibles")),
+        SnackBar(
+            content: Text(
+                "Réservation réussie! Places restantes: $placesDisponibles")),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -44,11 +46,13 @@ class _TrajetDetailsScreenState extends State<TrajetDetailsScreen> {
   // Fonction pour annuler une réservation
   void annulerReservation() {
     setState(() {
-      placesDisponibles++;  // Augmenter le nombre de places disponibles
-      isReserved = false;  // Marquer la place comme non réservée
+      placesDisponibles++; // Augmenter le nombre de places disponibles
+      isReserved = false; // Marquer la place comme non réservée
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Réservation annulée! Places restantes: $placesDisponibles")),
+      SnackBar(
+          content: Text(
+              "Réservation annulée! Places restantes: $placesDisponibles")),
     );
   }
 
@@ -67,21 +71,22 @@ class _TrajetDetailsScreenState extends State<TrajetDetailsScreen> {
             Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage("assets/images/${widget.trajet["avatar"]}.jpg"),
+                backgroundImage: AssetImage("assets/images/.jpg"),
               ),
             ),
             const SizedBox(height: 20),
 
             // Informations principales
             Text(
-              '${trajet.fromLocation} → ${trajet.toLocation}',
+              '${widget.trajet.fromLocation} → ${widget.trajet.toLocation}',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            Text('Conducteur: ${trajet.driver.name} ${trajet.driver.surname}',
+            Text(
+                'Conducteur: ${widget.trajet.driver.name} ${widget.trajet.driver.surname}',
                 style: TextStyle(fontSize: 18)),
             Text(
-                'Date et Heure: ${trajet.startDate.day.toString().padLeft(2, '0')}/${trajet.startDate.month.toString().padLeft(2, '0')}/${trajet.startDate.year} ${trajet.hourOfDeparture.hour.toString().padLeft(2, '0')}:${trajet.hourOfDeparture.minute.toString().padLeft(2, '0')}',
+                'Date et Heure: ${widget.trajet.startDate.day.toString().padLeft(2, '0')}/${widget.trajet.startDate.month.toString().padLeft(2, '0')}/${widget.trajet.startDate.year} ${widget.trajet.hourOfDeparture.hour.toString().padLeft(2, '0')}:${widget.trajet.hourOfDeparture.minute.toString().padLeft(2, '0')}',
                 style: TextStyle(fontSize: 16)),
             const SizedBox(height: 20),
 
@@ -103,7 +108,7 @@ class _TrajetDetailsScreenState extends State<TrajetDetailsScreen> {
                       onPressed: () async {
                         // Ajouter l'action pour réserver
                         context.read<BookTripBloc>().add(
-                              BookTripSubmitted(tripId: trajet.id),
+                              BookTripSubmitted(tripId: widget.trajet.id),
                             );
                       },
                       icon: Icon(Icons.check),
