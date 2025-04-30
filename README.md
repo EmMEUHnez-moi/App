@@ -51,4 +51,4 @@ flutter run
 
 ## Licence
 
-Distribué sous licence propriétaire. Voir `LICENSE` pour plus d'informations.
+Distribué sous licence propriétaire. Voir [LICENCE](LICENCE.md) pour plus d'informations.
