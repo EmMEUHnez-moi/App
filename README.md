@@ -1,7 +1,5 @@
 # EmMEUHnez-moi App
 
-Une application Flutter moderne conçue pour être exécutée sur des émulateurs Android et iOS.
-
 ## Installation et exécution sur un émulateur
 
 ### Prérequis
