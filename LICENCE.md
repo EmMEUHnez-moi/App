@@ -1,6 +1,7 @@
 # LICENCE D’UTILISATION – APPLICATION "EMMEUH’NEZ MOI”
 
 **Éditeur** : EMMEUH’NEZ MOI CORP
+
 **Contact** : contact@emmeuhnez-moi.fr
 
 ## Article 1 – Objet
